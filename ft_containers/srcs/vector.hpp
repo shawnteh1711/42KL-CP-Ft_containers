@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 12:37:58 by schuah            #+#    #+#             */
-/*   Updated: 2022/11/21 16:34:47 by schuah           ###   ########.fr       */
+/*   Updated: 2022/11/21 18:23:23 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 
 /**
  * https://en.cppreference.com/w/cpp/container/vector
+ * https://cplusplus.com/reference/vector/vector/vector/
  */
 namespace ft
 {
@@ -65,6 +66,8 @@ namespace ft
 				this->_start = NULL;
 				this->_end = NULL;
 				this->_capacity = NULL;
+				(void)first;
+				(void)last;
 			}
 
 			/* Copy constructor */
@@ -77,7 +80,17 @@ namespace ft
 				
 				this->_start = this->_alloc.allocate(src_cap);
 				this->_capacity = this->_start + src_cap;
-				this->_end = contruct_with_start(this->_start, src._start, src._end);
+				this->_end = contruct_from_start(this->_start, src._start, src._end);
+			}
+
+			/* Deconstructor */
+			~vector()
+			{
+				if (this->_start != NULL)
+				{
+					destroy_from_start(this->_start);
+					this->_alloc.deallocate(this->_start, capacity());
+				}
 			}
 
 			/* Capacity member function */
@@ -88,7 +101,7 @@ namespace ft
 
 			/* Range constructor helper function (Using src as value)*/
 			template <typename Iterator>
-			pointer contruct_with_start(pointer dst, Iterator start, Iterator end)
+			pointer contruct_from_start(pointer dst, Iterator start, Iterator end)
 			{
 				while (start != end)
 				{
@@ -111,6 +124,13 @@ namespace ft
 			}
 		
 		private:
+			void	destroy_from_start(pointer start)
+			{
+				for (pointer cur = start; cur != this->_end; cur++)
+					this->_alloc.destroy(cur);
+				this->_end = start;
+			}
+
 			allocator_type	_alloc;
 			pointer			_start;
 			pointer			_end;
