@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 17:38:42 by schuah            #+#    #+#             */
-/*   Updated: 2022/11/21 21:50:50 by schuah           ###   ########.fr       */
+/*   Updated: 2022/11/21 21:57:05 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
  */
 namespace ft
 {
-	template <typename Iter> struct iterator_traits
+	template <class Iter> struct iterator_traits
 	{
 		typedef typename Iter::difference_type		difference_type;
 		typedef typename Iter::value_type			value_type;
@@ -30,12 +30,12 @@ namespace ft
 		typedef typename Iter::iterator_category	iterator_category;
 	};
 
-	template <typename Iter> struct iterator_traits<Iter*>
+	template <class T> struct iterator_traits<T*>
 	{
 		typedef std::ptrdiff_t						difference_type;
-		typedef typename std::remove_cv<Iter>::type	value_type;
-		typedef Iter*								pointer;
-		typedef Iter&								reference;
+		typedef T									value_type;
+		typedef T*									pointer;
+		typedef T&									reference;
 		typedef std::random_access_iterator_tag		iterator_category;
 	};
 }
