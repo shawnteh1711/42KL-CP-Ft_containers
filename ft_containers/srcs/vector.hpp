@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 12:37:58 by schuah            #+#    #+#             */
-/*   Updated: 2022/11/16 21:33:41 by schuah           ###   ########.fr       */
+/*   Updated: 2022/11/21 16:34:47 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,11 @@
 # define VECTOR_HPP
 
 # include "ft_containers.hpp"
+# include "type_traits.hpp"
 
+/**
+ * https://en.cppreference.com/w/cpp/container/vector
+ */
 namespace ft
 {
 	template <typename T, typename Allocator = std::allocator<T> >
@@ -55,11 +59,12 @@ namespace ft
 
 			/* Range constructor */
 			template <class InputIterator>
-			vector (InputIterator first, InputIterator last, const allocator_type &alloc = allocator_type())
+			vector (InputIterator first, typename enable_if<!is_integral<InputIterator>::value, InputIterator>::type last, const allocator_type &alloc = allocator_type())
 			{
-				(void)first;
-				(void)last;
-				(void)alloc;
+				this->_alloc = alloc;
+				this->_start = NULL;
+				this->_end = NULL;
+				this->_capacity = NULL;
 			}
 
 			/* Copy constructor */
@@ -78,7 +83,7 @@ namespace ft
 			/* Capacity member function */
 			size_type	capacity () const
 			{
-				return static_cast<size_type>(this->_end - this->_start);
+				return (static_cast<size_type>(this->_end - this->_start));
 			}
 
 			/* Range constructor helper function (Using src as value)*/
