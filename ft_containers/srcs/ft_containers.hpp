@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 15:36:55 by schuah            #+#    #+#             */
-/*   Updated: 2022/11/21 16:30:33 by schuah           ###   ########.fr       */
+/*   Updated: 2022/11/21 21:49:42 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <iostream>
 # include "vector.hpp"
+# include "iterator.hpp"
 # include "type_traits.hpp"
 
 #endif

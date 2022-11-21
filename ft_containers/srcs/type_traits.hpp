@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:52:39 by schuah            #+#    #+#             */
-/*   Updated: 2022/11/21 16:32:43 by schuah           ###   ########.fr       */
+/*   Updated: 2022/11/21 19:04:17 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,7 @@ namespace ft
 	template <bool B, class T = void>	struct enable_if {};
 	template <class T>					struct enable_if<true, T> { typedef T type; };
 
-	template <class T, T v>
-	struct integral_constant
+	template <class T, T v> struct integral_constant
 	{
 		static const bool value = v;
 
