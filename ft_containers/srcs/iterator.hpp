@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 17:38:42 by schuah            #+#    #+#             */
-/*   Updated: 2022/11/22 14:16:09 by schuah           ###   ########.fr       */
+/*   Updated: 2022/11/24 14:57:19 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
  * https://en.cppreference.com/w/cpp/iterator/iterator
  * https://en.cppreference.com/w/cpp/iterator/iterator_traits
  * https://en.cppreference.com/w/cpp/iterator/reverse_iterator
- * https://cplusplus.com/reference/iterator/reverse_iterator/reverse_iterator
+ * https://cplusplus.com/reference/iterator/reverse_iterator/
  */
 namespace ft
 {
@@ -84,11 +84,73 @@ namespace ft
 			}
 			
 			/* Base member function. Accesses the underlying iterator */
-			iterator_type base() const
+			iterator_type	base() const
 			{
 				return (current);
 			}
+
+			/* Accesses the pointed-to element */
+			reference	operator*() const
+			{
+				return (*(current - 1));
+			}
+
+			pointer	operator->() const
+			{
+				return (&(operator*()));
+			}
 		
+			/* Accesses an element by index */
+			reference	operator[](difference_type n) const
+			{
+				return (*(*this + n));
+			}
+
+			/* Advances or decrements the iterator */
+			reverse_iterator&	operator++()
+			{
+				--current;
+				return (*this);
+			}
+
+			reverse_iterator	operator++(int)
+			{
+				return (reverse_iterator(current--));
+			}
+
+			reverse_iterator&	operator--()
+			{
+				++current;
+				return (*this);
+			}
+
+			reverse_iterator	operator--(int)
+			{
+				return (reverse_iterator(current++));
+			}
+
+			reverse_iterator	operator+(difference_type n) const
+			{
+				return (reverse_iterator(current - n));
+			}
+
+			reverse_iterator	operator-(difference_type n) const
+			{
+				return (reverse_iterator(current + n));
+			}
+
+			reverse_iterator	operator+=(difference_type n)
+			{
+				current -= n;
+				return (*this);
+			}
+
+			reverse_iterator	operator-=(difference_type n)
+			{
+				current += n;
+				return (*this);
+			}
+
 		protected:
 			Iter	current;
 	};
