@@ -6,12 +6,17 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 <<<<<<< HEAD
+<<<<<<< HEAD
 /*   Created: 2022/11/25 12:20:32 by schuah            #+#    #+#             */
 /*   Updated: 2022/11/25 12:20:38 by schuah           ###   ########.fr       */
 =======
 /*   Created: 2022/11/21 17:38:42 by schuah            #+#    #+#             */
 /*   Updated: 2022/11/25 12:18:14 by schuah           ###   ########.fr       */
 >>>>>>> parent of e788ddb... NTA4
+=======
+/*   Created: 2022/11/21 17:38:42 by schuah            #+#    #+#             */
+/*   Updated: 2022/11/25 12:18:57 by schuah           ###   ########.fr       */
+>>>>>>> parent of 042e659... Back to main
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,6 +164,11 @@ namespace ft
 		protected:
 			Iter	current;
 	};
+<<<<<<< HEAD
+=======
+
+	
+>>>>>>> parent of 042e659... Back to main
 }
 
 #endif
