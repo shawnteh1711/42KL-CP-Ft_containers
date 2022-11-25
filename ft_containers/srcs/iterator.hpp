@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 17:38:42 by schuah            #+#    #+#             */
-/*   Updated: 2022/11/25 12:15:29 by schuah           ###   ########.fr       */
+/*   Updated: 2022/11/25 12:16:34 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,12 +155,7 @@ namespace ft
 			Iter	current;
 	};
 
-	/* Compares the underlying iterators */
-	template <class Iterator1, class Iterator2>
-	bool	operator==(const std::reverse_iterator<Iterator1>& lhs, const std::reverse_iterator<Iterator2>& rhs)
-	{
-		return (rhs.base() - lhs.base());
-	}
+	
 }
 
 #endif
