@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 17:38:42 by schuah            #+#    #+#             */
-/*   Updated: 2022/11/25 12:18:14 by schuah           ###   ########.fr       */
+/*   Updated: 2022/11/25 12:18:57 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,6 +154,8 @@ namespace ft
 		protected:
 			Iter	current;
 	};
+
+	
 }
 
 #endif
