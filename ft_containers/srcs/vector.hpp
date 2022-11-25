@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 12:37:58 by schuah            #+#    #+#             */
-/*   Updated: 2022/11/25 15:51:24 by schuah           ###   ########.fr       */
+/*   Updated: 2022/11/25 16:26:43 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ namespace ft
 			}
 			
 			/* Constructs the container with count copies of elements with value */
-			explicit vector (size_type count, const value_type& value = value_type(), const allocator_type& alloc = allocator_type())
+			explicit vector(size_type count, const value_type& value = value_type(), const allocator_type& alloc = allocator_type())
 			{
 				if (count <= 0)
 					return ;
@@ -70,7 +70,7 @@ namespace ft
 
 			/* Constructs the container with the contents of the range */
 			template <class InputIt>
-			vector (InputIt first, typename enable_if<!is_integral<InputIt>::value, InputIt>::type last, const allocator_type& alloc = allocator_type())
+			vector(InputIt first, typename enable_if<!is_integral<InputIt>::value, InputIt>::type last, const allocator_type& alloc = allocator_type())
 			{
 				this->_alloc = alloc;
 				this->_start = NULL;
@@ -133,10 +133,7 @@ namespace ft
 			 * 	reserve
 			 */
 
-			/*
-			 * Capacity member function. Returns the number of elements that can
-			 * be held in currently allocated storage
-			 */
+			/* Returns the number of elements that can be held in currently allocated storage */
 			size_type	capacity () const
 			{
 				return (static_cast<size_type>(this->_end - this->_start));

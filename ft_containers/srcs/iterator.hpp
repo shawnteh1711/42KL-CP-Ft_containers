@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 12:22:27 by schuah            #+#    #+#             */
-/*   Updated: 2022/11/25 14:40:22 by schuah           ###   ########.fr       */
+/*   Updated: 2022/11/25 18:26:38 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
  * https://en.cppreference.com/w/cpp/iterator/iterator
  * https://en.cppreference.com/w/cpp/iterator/iterator_traits
  * https://en.cppreference.com/w/cpp/iterator/reverse_iterator
- * https://cplusplus.com/reference/iterator/reverse_iterator/
  */
 namespace ft
 {
@@ -110,13 +109,13 @@ namespace ft
 			/* Advances or decrements the iterator */
 			reverse_iterator&	operator++()
 			{
-				--current;
+				current--;
 				return (*this);
 			}
 
 			reverse_iterator&	operator--()
 			{
-				++current;
+				current++;
 				return (*this);
 			}
 
