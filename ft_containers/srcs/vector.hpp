@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 12:37:58 by schuah            #+#    #+#             */
-/*   Updated: 2022/11/26 17:42:34 by schuah           ###   ########.fr       */
+/*   Updated: 2022/11/26 19:07:51 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,8 @@ namespace ft
 			/* Copy constructor */
 			vector (const vector& other)
 			{
-				this->_alloc = other._alloc;
 				size_type	src_cap = other.capacity();
+				this->_alloc = other._alloc;
 				if (src_cap <= 0)
 					return ;
 				this->_start = this->_alloc.allocate(src_cap);
@@ -113,13 +113,7 @@ namespace ft
 				return (*this);
 			}
 
-			/* Member functions */
-			template <class InputIt>
-			void	assign(InputIt first, typename enable_if<!is_integral<InputIt>::value, InputIt>::type last)
-			{
-				range_assign(first, last, typename iterator_traits<InputIt>::iterator_category());
-			}
-
+			/* Replaces the contents with count copies of value */
 			void	assign(size_type count, const T& value)
 			{
 				if (count > capacity())
@@ -129,8 +123,8 @@ namespace ft
 				}
 				else if (count > size())
 				{
-					std::fill(begin(), end(), value);
 					const size_type	available = count - size();
+					std::fill(begin(), end(), value);
 					this->_end = construct_with_val(this->_end, this->_end + available, value);
 				}
 				else
@@ -140,6 +134,14 @@ namespace ft
 				}
 			}
 
+			/* Replaces the contents with copies of those in range [first, last] */
+			template <class InputIt>
+			void	assign(InputIt first, typename enable_if<!is_integral<InputIt>::value, InputIt>::type last)
+			{
+				range_assign(first, last, typename iterator_traits<InputIt>::iterator_category());
+			}
+
+			/* Returns the allocator associated with the container */
 			allocator_type	get_allocator() const
 			{
 				return (this->_alloc);
@@ -154,16 +156,18 @@ namespace ft
 			 * 	data 
 			 */
 
-			/* Iterators */
+			/* Iterators: Returns an iterator to the first element of the vector */
 			iterator	begin()
 			{
 				return (iterator(this->_start));
 			}
+
 			const_iterator	begin() const
 			{
 				return (const_iterator(this->_start));
 			}
 			
+			/* Iterators: Returns an iterator to the element following the last element of the vector */
 			iterator	end()
 			{
 				return (iterator(this->_end));
@@ -184,11 +188,13 @@ namespace ft
 			 * 	empty
 			 */
 
+			/* Capacity: Returns the number of elements in the container */
 			size_type	size() const
 			{
-				return (static_cast<size_type>(this->_end - this->_start));
+				return (std::distance(this->begin(), this->end()));
 			}
 
+			/* Capacity: Returns the maximum number of elements the container is able to hold due to system or library implementation limitations */
 			size_type	max_size() const
 			{
 				return (std::min(this->_alloc.max_size(), static_cast<size_type>(std::numeric_limits<difference_type>::max())));
@@ -198,18 +204,19 @@ namespace ft
 			 * 	reserve
 			 */
 
-			/* Returns the number of elements that can be held in currently allocated storage */
+			/* Capacity: Returns the number of elements that the container has currently allocated space for */
 			size_type	capacity () const
 			{
 				return (static_cast<size_type>(this->_end - this->_start));
 			}
 
-			/* Modifiers */
+			/* Modifiers: Erases all elements from the container */
 			void	clear()
 			{
 				destroy_from_start(this->_start);
 			}
 
+			/* Modifiers: Insert value before pos */
 			iterator	insert(iterator pos, const value_type& value)
 			{
 				const size_type	index = pos - begin();
@@ -217,12 +224,12 @@ namespace ft
 				return (iterator(this->_start + index));
 			}
 
+			/* Modifiers: Inserts count copies of the value before pos */
 			void	insert(iterator pos, size_type count, const value_type& value)
 			{
-				const size_type	available = this->_capacity - this->_end;
-
 				if (count == 0)
 					return ;
+				const size_type	available = this->_capacity - this->_end;
 				if (available >= count)
 				{
 					const size_type	post = end() - pos;
@@ -245,7 +252,6 @@ namespace ft
 					const size_type	size = get_expansion(count);
 					pointer			start = this->_alloc.allocate(size);
 					pointer			end;
-
 					end = construct_from_start(start, this->_start, pos.base());
 					end = construct_from_start(end, end + count, value);
 					end = construct_from_start(end, pos.base(), this->_end);
@@ -256,6 +262,7 @@ namespace ft
 				}
 			}
 
+			/* Modifiers: Insert elements from range [first, last] before pos */
 			template <class InputIt>
 			void	insert(iterator pos, InputIt first, typename enable_if<!is_integral<InputIt>::value, InputIt>::type last)
 			{
@@ -266,6 +273,7 @@ namespace ft
 			 *	erase
 			 */
 
+			/* Modifiers: Appends the given element value to the end of the container */
 			void	push_back(const value_type& value)
 			{
 				if (this->_end != this->_capacity)
@@ -282,6 +290,7 @@ namespace ft
 			 *	resize
 			 */
 
+			/* Exchanges the contents of the container with those of other */
 			void	swap(vector& other)
 			{
 				std::swap(this->_start, other._start);
@@ -290,6 +299,7 @@ namespace ft
 			}
 		
 		private:
+			/* Helper function: Checks whether size is larger than max size */
 			int	check_max_size(size_type size)
 			{
 				if (size > max_size())
@@ -314,6 +324,7 @@ namespace ft
 				return (dst);
 			}
 
+			/* Helper function: Clears and deallocates this vector */
 			void	deallocate_vector()
 			{
 				if (this->_start != NULL)
@@ -331,16 +342,18 @@ namespace ft
 				this->_end = start;
 			}
 
+			/* Helper function: Returns the size after count expansions */
 			size_type	get_expansion(size_type count) const
 			{
+				check_max_size(count);
 				const size_type	max = max_size();
 				const size_type	cap = capacity();
-				check_max_size(count);
 				if (cap >= max / 2)
 					return (max);
 				return (std::max(size() + count, cap * 2));
 			}
 
+			/* Helper function: Inserts from range [first, last] into pos without constructing */
 			template <class InputIt>
 			void	range_insert(iterator pos, InputIt first, InputIt last, std::input_iterator_tag)
 			{
@@ -356,14 +369,15 @@ namespace ft
 				}
 			}
 
+			/* Helper function: Inserts from range [first, last] into pos by constructing*/
 			template <class ForwardIt>
 			void	range_insert(iterator pos, ForwardIt first, ForwardIt last, std::forward_iterator_tag)
 			{
 				if (first == last)
 					return ;
+				check_max_size(count);
 				const size_type	count = std::distance(first, last);
 				const size_type	available = this->_capacity - this->_end;
-				check_max_size(count);
 				if (available >= count)
 				{
 					const size_type post = end() - pos;
@@ -388,7 +402,6 @@ namespace ft
 					const size_type	size = get_expansion(count);
 					pointer			start = this->_alloc.allocate(size);
 					pointer			end = start;
-
 					end = construct_from_start(start, this->_start, pos.base());
 					end = construct_from_start(end, first, last);
 					end = construct_from_start(end, pos.base(), this->_end);
@@ -399,6 +412,7 @@ namespace ft
 				}
 			}
 
+			/* Helper function: Assigns range [first, last] by pushing back */
 			template <class InputIt>
 			void	range_assign(InputIt first, InputIt last, std::input_iterator_tag)
 			{
@@ -407,11 +421,11 @@ namespace ft
 					push_back(*first);
 			}
 
+			/* Helper function: Assigns range [first, last] by copying */
 			template <class ForwardIt>
 			void	range_assign(ForwardIt first, ForwardIt last, std::forward_iterator_tag)
 			{
 				const size_type	n = std::distance(first, last);
-
 				if (n < size())
 				{
 					iterator	it = std::copy(first, last, begin());
@@ -426,7 +440,7 @@ namespace ft
 				}
 			}
 
-			/* Range initialising */
+			/* Helper function: Range initialising by pushing back */
 			template <class InputIt>
 			void	range_init(InputIt first, InputIt last, std::input_iterator_tag)
 			{
@@ -434,6 +448,7 @@ namespace ft
 					push_back(*first);
 			}
 
+			/* Helper function: Range initialising by creating a new container */
 			template <class ForwardIt>
 			void	range_init(ForwardIt first, ForwardIt last, std::forward_iterator_tag)
 			{

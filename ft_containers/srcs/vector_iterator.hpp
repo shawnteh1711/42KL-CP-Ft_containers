@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 15:55:59 by schuah            #+#    #+#             */
-/*   Updated: 2022/11/26 12:26:25 by schuah           ###   ########.fr       */
+/*   Updated: 2022/11/26 18:16:07 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,7 @@ namespace ft
 			Iter	_iter;
 	};
 
+	/* Compares the underlying iterators */
 	template <class Iterator1, class Iterator2, class Container>
 	bool operator==(const vector_iterator<Iterator1, Container>& lhs, const vector_iterator<Iterator2, Container>& rhs)
 	{
