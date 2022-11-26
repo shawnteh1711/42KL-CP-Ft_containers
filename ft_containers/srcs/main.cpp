@@ -6,18 +6,19 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 15:36:16 by schuah            #+#    #+#             */
-/*   Updated: 2022/11/16 21:18:42 by schuah           ###   ########.fr       */
+/*   Updated: 2022/11/26 13:45:49 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_containers.hpp"
+#include <vector>
 
 int	main(void)
 {
 	// ft::vector<int>	vct1;
 	ft::vector<int> vct2(10);
 	ft::vector<int>	vct3(10, 10);
-	// ft::vector<int> vct4{10, 20, 30};
+	std::vector<std::string> words1;
 
 	int arr[] = { 10, 20, 30 };
     int n = sizeof(arr) / sizeof(arr[0]);
