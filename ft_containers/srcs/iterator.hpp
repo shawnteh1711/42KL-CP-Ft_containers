@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 12:22:27 by schuah            #+#    #+#             */
-/*   Updated: 2022/11/25 18:26:38 by schuah           ###   ########.fr       */
+/*   Updated: 2022/11/26 12:17:25 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,10 +194,10 @@ namespace ft
 	}
 
 	/* Advances the iterator */
-	template <class Iter>
-	reverse_iterator<Iter>	operator+(typename reverse_iterator<Iter>::difference_type n, const reverse_iterator<Iter>& it)
+	template <class Iterator>
+	reverse_iterator<Iterator>	operator+(typename reverse_iterator<Iterator>::difference_type n, const reverse_iterator<Iterator>& it)
 	{
-		return (reverse_iterator<Iter>(it.base() - n));
+		return (reverse_iterator<Iterator>(it.base() - n));
 	}
 
 	/* Computes the distance between two iterator adaptors */
