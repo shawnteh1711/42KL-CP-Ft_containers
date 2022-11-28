@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 12:37:58 by schuah            #+#    #+#             */
-/*   Updated: 2022/11/28 13:56:29 by schuah           ###   ########.fr       */
+/*   Updated: 2022/11/28 14:10:28 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -248,10 +248,11 @@ namespace ft
 				return (reverse_iterator(this->begin()));
 			}
 
-			/**
-			 * CAPACITY
-			 * 	empty
-			 */
+			/* Capacity: Checks if the container has no elements */
+			bool	empty() const
+			{
+				return (this->begin() == this->end());
+			}
 
 			/* Capacity: Returns the number of elements in the container */
 			size_type	size() const
@@ -265,9 +266,20 @@ namespace ft
 				return (std::min(this->_alloc.max_size(), static_cast<size_type>(std::numeric_limits<difference_type>::max())));
 			}
 
-			/**
-			 * 	reserve
-			 */
+			/* Capacity: Increase the capacity of the vector (Allocation might be needed) to a value that's greator or equal to new_cap */
+			void	reserve(size_type new_cap)
+			{
+				if (new_cap < capacity())
+					return ;
+				check_max_size(new_cap);
+				pointer	start = this->_alloc.allocate(new_cap);
+				pointer	end;
+				end = construct_from_start(start, this->_start, this->_end);
+				deallocate_vector();
+				this->_start = start;
+				this->_end = end;
+				this->_capacity = this->_start + new_cap;
+			}
 
 			/* Capacity: Returns the number of elements that the container has currently allocated space for */
 			size_type	capacity () const
