@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 12:22:27 by schuah            #+#    #+#             */
-/*   Updated: 2022/11/26 12:17:25 by schuah           ###   ########.fr       */
+/*   Updated: 2022/11/28 15:06:30 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ namespace ft
 
 			pointer	operator->() const
 			{
-				return (&(operator*()));
+				return (&(this->operator*()));
 			}
 		
 			/* Accesses an element by index */
