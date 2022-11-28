@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 15:36:16 by schuah            #+#    #+#             */
-/*   Updated: 2022/11/26 13:45:49 by schuah           ###   ########.fr       */
+/*   Updated: 2022/11/28 12:59:25 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,9 @@ int	main(void)
 	// ft::vector<int> vct6(vct4.begin(), vct4.end());
 	ft::vector<int> vct7(vct3);
 
+	char	*str = strdup("Hello World");
+	std::cout << 3[str] << std::endl;
+	std::cout << 4[str] << std::endl;
 	
 	return (0);
 }

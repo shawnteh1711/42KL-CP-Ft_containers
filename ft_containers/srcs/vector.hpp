@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 12:37:58 by schuah            #+#    #+#             */
-/*   Updated: 2022/11/26 19:07:51 by schuah           ###   ########.fr       */
+/*   Updated: 2022/11/28 13:11:53 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,14 +147,62 @@ namespace ft
 				return (this->_alloc);
 			}
 
-			/**
-			 * ELEMENT ACCESS
-			 * 	at
-			 * 	operator[]
-			 * 	front
-			 * 	back
-			 * 	data 
-			 */
+			/* Element access: Returns a reference to the element at specifies location pos, with bounds checking */
+			reference	at(size_type pos)
+			{
+				check_range(pos);
+				return ((*this)[pos]);
+			}
+
+			const_reference	at(size_type pos) const
+			{
+				check_range(pos);
+				return ((*this)[pos]);
+			}
+
+			/* Element access: Returns a reference to the element at specified location pos. No bounds checking is performed */
+			reference	operator[](size_type pos)
+			{
+				return (*(this->_start + pos));
+			}
+
+			const_reference	operator[](size_type pos) const
+			{
+				return (*(this->_start + pos));
+			}
+
+			/* Element access: Returns a reference to the first element in the container */
+			reference	front()
+			{
+				return (*this->begin());
+			}
+
+			const_reference	front() const
+			{
+				return (*this->begin());
+			}
+
+			/* Element access: Returns a reference to the last element in the container */
+			reference	back()
+			{
+				return (*(this->end() - 1));
+			}
+
+			const_reference	back() const
+			{
+				return (*(this->end() - 1));
+			}
+
+			/* Element access: Returns pointer to the underlying array serving as element storage */
+			pointer	data()
+			{
+				return (this->_start);
+			}
+
+			const_pointer	data() const
+			{
+				return (this->_start);
+			}
 
 			/* Iterators: Returns an iterator to the first element of the vector */
 			iterator	begin()
@@ -299,7 +347,7 @@ namespace ft
 			}
 		
 		private:
-			/* Helper function: Checks whether size is larger than max size */
+			/* Helper function: If size is larger than max size, throw std::length_error exception */
 			int	check_max_size(size_type size)
 			{
 				if (size > max_size())
@@ -375,9 +423,9 @@ namespace ft
 			{
 				if (first == last)
 					return ;
-				check_max_size(count);
 				const size_type	count = std::distance(first, last);
 				const size_type	available = this->_capacity - this->_end;
+				check_max_size(count);
 				if (available >= count)
 				{
 					const size_type post = end() - pos;
@@ -438,6 +486,14 @@ namespace ft
 					std::copy(first, it, begin());
 					insert(end(), it, last);
 				}
+			}
+
+			/* Helper function: If n is larger than size, throw std::out_of_range exception */
+			int	check_range(size_type n) const
+			{
+				if (n >= size())
+					throw std::out_of_range("Out of range");
+				return (0);
 			}
 
 			/* Helper function: Range initialising by pushing back */
