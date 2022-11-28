@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 12:37:58 by schuah            #+#    #+#             */
-/*   Updated: 2022/11/28 13:11:53 by schuah           ###   ########.fr       */
+/*   Updated: 2022/11/28 13:56:29 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -226,10 +226,27 @@ namespace ft
 				return (const_iterator(this->_end));
 			}
 
-			/**
-			 * 	rbegin
-			 * 	rend 
-			 */
+			/* Iterators: Returns a reverse iterator to the first element of the reversed vector */
+			reverse_iterator	rbegin()
+			{
+				return (reverse_iterator(this->end()));
+			}
+
+			const_reverse_iterator	rbegin() const
+			{
+				return (reverse_iterator(this->end()));
+			}
+
+			/* Iterators: Returns a reverse iterator to the element following the last element of the reversed vector */
+			reverse_iterator	rend()
+			{
+				return (reverse_iterator(this->begin()));
+			}
+
+			const_reverse_iterator	rend() const
+			{
+				return (reverse_iterator(this->begin()));
+			}
 
 			/**
 			 * CAPACITY
