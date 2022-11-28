@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 12:37:58 by schuah            #+#    #+#             */
-/*   Updated: 2022/11/28 15:45:27 by schuah           ###   ########.fr       */
+/*   Updated: 2022/11/28 16:49:05 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ namespace ft
 			/* Default constructor */
 			vector()
 			{
-				this->_alloc = this->allocator_type();
+				this->_alloc = allocator_type();
 				this->_start = NULL;
 				this->_end = NULL;
 				this->_capacity = NULL;
@@ -320,7 +320,7 @@ namespace ft
 					else
 					{
 						this->_end = this->construct_with_val(this->_end, this->_end + count - post, value);
-						this->_end = this->construct_with_val(this->_end, pos.base(), temp);
+						this->_end = this->construct_from_start(this->_end, pos.base(), temp);
 						std::fill(pos.base(), temp, value);
 					}
 				}
@@ -330,7 +330,7 @@ namespace ft
 					pointer			start = this->_alloc.allocate(size);
 					pointer			end;
 					end = this->construct_from_start(start, this->_start, pos.base());
-					end = this->construct_from_start(end, end + count, value);
+					end = this->construct_with_val(end, end + count, value);
 					end = this->construct_from_start(end, pos.base(), this->_end);
 					this->deallocate_vector();
 					this->_start = start;
@@ -452,12 +452,69 @@ namespace ft
 			/* Helper function: Returns the size after count expansions */
 			size_type	get_expansion(size_type count) const
 			{
-				this->check_max_size(count);
 				const size_type	max = max_size();
 				const size_type	cap = capacity();
+				if (max - cap < count)
+					throw std::length_error("Length error");
 				if (cap >= max / 2)
 					return (max);
 				return (std::max(size() + count, cap * 2));
+			}
+
+			/* Helper function: Assigns range [first, last] by pushing back */
+			template <class InputIt>
+			void	range_assign(InputIt first, InputIt last, std::input_iterator_tag)
+			{
+				this->clear();
+				for (; first != last; first++)
+					this->push_back(*first);
+			}
+
+			/* Helper function: Assigns range [first, last] by copying */
+			template <class ForwardIt>
+			void	range_assign(ForwardIt first, ForwardIt last, std::forward_iterator_tag)
+			{
+				const size_type	n = std::distance(first, last);
+				if (n < this->size())
+				{
+					iterator	it = std::copy(first, last, this->begin());
+					this->destroy_from_start(it.base());
+				}
+				else
+				{
+					ForwardIt	it = first;
+					std::advance(it, this->size());
+					std::copy(first, it, this->begin());
+					this->insert(this->end(), it, last);
+				}
+			}
+
+			/* Helper function: If n is larger than size, throw std::out_of_range exception */
+			int	check_range(size_type n) const
+			{
+				if (n >= this->size())
+					throw std::out_of_range("Out of range");
+				return (0);
+			}
+
+			/* Helper function: Range initialising by pushing back */
+			template <class InputIt>
+			void	range_init(InputIt first, InputIt last, std::input_iterator_tag)
+			{
+				for (; first != last; first++)
+					this->push_back(*first);
+			}
+
+			/* Helper function: Range initialising by creating a new container */
+			template <class ForwardIt>
+			void	range_init(ForwardIt first, ForwardIt last, std::forward_iterator_tag)
+			{
+				const size_type count = std::distance(first, last);
+				if (count == 0 || this->check_max_size(count))
+					return ;
+				this->_start = this->_alloc.allocate(count);
+				this->_capacity = this->_start + count;
+				this->_end = this->construct_from_start(this->_start, first, last);
 			}
 
 			/* Helper function: Inserts from range [first, last] into pos without constructing */
@@ -517,62 +574,6 @@ namespace ft
 					this->_end = end;
 					this->_capacity = start + size;
 				}
-			}
-
-			/* Helper function: Assigns range [first, last] by pushing back */
-			template <class InputIt>
-			void	range_assign(InputIt first, InputIt last, std::input_iterator_tag)
-			{
-				this->clear();
-				for (; first != last; first++)
-					this->push_back(*first);
-			}
-
-			/* Helper function: Assigns range [first, last] by copying */
-			template <class ForwardIt>
-			void	range_assign(ForwardIt first, ForwardIt last, std::forward_iterator_tag)
-			{
-				const size_type	n = std::distance(first, last);
-				if (n < this->size())
-				{
-					iterator	it = std::copy(first, last, this->begin());
-					this->destroy_from_start(it.base());
-				}
-				else
-				{
-					ForwardIt	it = first;
-					std::advance(it, this->size());
-					std::copy(first, it, this->begin());
-					this->insert(this->end(), it, last);
-				}
-			}
-
-			/* Helper function: If n is larger than size, throw std::out_of_range exception */
-			int	check_range(size_type n) const
-			{
-				if (n >= this->size())
-					throw std::out_of_range("Out of range");
-				return (0);
-			}
-
-			/* Helper function: Range initialising by pushing back */
-			template <class InputIt>
-			void	range_init(InputIt first, InputIt last, std::input_iterator_tag)
-			{
-				for (; first != last; first++)
-					this->push_back(*first);
-			}
-
-			/* Helper function: Range initialising by creating a new container */
-			template <class ForwardIt>
-			void	range_init(ForwardIt first, ForwardIt last, std::forward_iterator_tag)
-			{
-				const size_type count = std::distance(first, last);
-				if (count == 0 || this->check_max_size(count))
-					return ;
-				this->_start = this->_alloc.allocate(count);
-				this->_capacity = this->_start + count;
-				this->_end = this->construct_from_start(this->_start, first, last);
 			}
 
 			/* Private member variables */
