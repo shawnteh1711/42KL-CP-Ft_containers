@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 12:37:58 by schuah            #+#    #+#             */
-/*   Updated: 2022/11/29 11:24:08 by schuah           ###   ########.fr       */
+/*   Updated: 2022/11/29 12:05:17 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ namespace ft
 				this->_start = NULL;
 				this->_end = NULL;
 				this->_capacity = NULL;
-				this->range_init(first, last, typename iterator_traits<InputIt>::iterator_category());
+				this->range_init(first, last);
 			}
 
 			/* Copy constructor */
@@ -139,7 +139,7 @@ namespace ft
 			template <class InputIt>
 			void	assign(InputIt first, typename enable_if<!is_integral<InputIt>::value, InputIt>::type last)
 			{
-				this->range_assign(first, last, typename iterator_traits<InputIt>::iterator_category());
+				this->range_assign(first, last);
 			}
 
 			/* Returns the allocator associated with the container */
@@ -344,7 +344,7 @@ namespace ft
 			template <class InputIt>
 			void	insert(iterator pos, InputIt first, typename enable_if<!is_integral<InputIt>::value, InputIt>::type last)
 			{
-				this->range_insert(pos, first, last, typename iterator_traits<InputIt>::iterator_category());
+				this->range_insert(pos, first, last);
 			}
 
 			/* Modifiers: Removes the element at pos */
@@ -462,18 +462,9 @@ namespace ft
 				return (std::max(size() + count, cap * 2));
 			}
 
-			/* Helper function: Assigns range [first, last] by pushing back */
-			template <class InputIt>
-			void	range_assign(InputIt first, InputIt last, std::input_iterator_tag)
-			{
-				this->clear();
-				for (; first != last; first++)
-					this->push_back(*first);
-			}
-
 			/* Helper function: Assigns range [first, last] by copying */
 			template <class ForwardIt>
-			void	range_assign(ForwardIt first, ForwardIt last, std::forward_iterator_tag)
+			void	range_assign(ForwardIt first, ForwardIt last)
 			{
 				const size_type	n = std::distance(first, last);
 				if (n < this->size())
@@ -498,17 +489,9 @@ namespace ft
 				return (0);
 			}
 
-			/* Helper function: Range initialising by pushing back */
-			template <class InputIt>
-			void	range_init(InputIt first, InputIt last, std::input_iterator_tag)
-			{
-				for (; first != last; first++)
-					this->push_back(*first);
-			}
-
 			/* Helper function: Range initialising by creating a new container */
 			template <class ForwardIt>
-			void	range_init(ForwardIt first, ForwardIt last, std::forward_iterator_tag)
+			void	range_init(ForwardIt first, ForwardIt last)
 			{
 				const size_type count = std::distance(first, last);
 				if (count == 0 || this->check_max_size(count))
@@ -518,25 +501,9 @@ namespace ft
 				this->_end = this->construct_from_start(this->_start, first, last);
 			}
 
-			/* Helper function: Inserts from range [first, last] into pos without constructing */
-			template <class InputIt>
-			void	range_insert(iterator pos, InputIt first, InputIt last, std::input_iterator_tag)
-			{
-				if (pos == this->end())
-				{
-					for (; first != last; ++first)
-						this->push_back(*first);
-				}
-				else if (first != last)
-				{
-					vector	temp(first, last);
-					this->insert(pos, temp.begin(), temp.end());
-				}
-			}
-
 			/* Helper function: Inserts from range [first, last] into pos by constructing*/
 			template <class ForwardIt>
-			void	range_insert(iterator pos, ForwardIt first, ForwardIt last, std::forward_iterator_tag)
+			void	range_insert(iterator pos, ForwardIt first, ForwardIt last)
 			{
 				if (first == last)
 					return ;

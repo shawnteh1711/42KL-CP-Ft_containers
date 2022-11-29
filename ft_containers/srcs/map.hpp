@@ -6,7 +6,11 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 12:37:49 by schuah            #+#    #+#             */
-/*   Updated: 2022/11/15 12:37:49 by schuah           ###   ########.fr       */
+/*   Updated: 2022/11/29 11:28:22 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef MAP_HPP
+# define MAP_HPP
+
+#endif
