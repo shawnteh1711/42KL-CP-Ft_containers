@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 17:33:47 by schuah            #+#    #+#             */
-/*   Updated: 2022/11/29 09:02:42 by schuah           ###   ########.fr       */
+/*   Updated: 2022/11/29 09:10:11 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 /**
  * https://en.cppreference.com/w/cpp/utility/pair
- * https://en.cppreference.com/w/cpp/algorithm/equal
  */
 namespace ft
 {
@@ -68,37 +67,37 @@ namespace ft
 
 	/* Lexicographically compares the values in the pair */
 	template <class T1, class T2>
-	bool operator==(const pair<T1, T2>& lhs, const std::pair<T1, T2>& rhs)
+	bool operator==(const pair<T1, T2>& lhs, const pair<T1, T2>& rhs)
 	{
 		return (lhs.first == rhs.first && lhs.first == rhs.second);
 	}
 
 	template <class T1, class T2>
-	bool operator!=(const pair<T1, T2>& lhs, const std::pair<T1, T2>& rhs)
+	bool operator!=(const pair<T1, T2>& lhs, const pair<T1, T2>& rhs)
 	{
 		return (lhs != rhs);
 	}
 	
 	template <class T1, class T2>
-	bool operator<(const pair<T1, T2>& lhs, const std::pair<T1, T2>& rhs)
+	bool operator<(const pair<T1, T2>& lhs, const pair<T1, T2>& rhs)
 	{
 		return (lhs.first < rhs.first || (rhs.first >= lhs.first && lhs.second < rhs.second));
 	}
 
 	template <class T1, class T2>
-	bool operator<=(const pair<T1, T2>& lhs, const std::pair<T1, T2>& rhs)
+	bool operator<=(const pair<T1, T2>& lhs, const pair<T1, T2>& rhs)
 	{
 		return (lhs <= rhs);
 	}
 
 	template <class T1, class T2>
-	bool operator>(const pair<T1, T2>& lhs, const std::pair<T1, T2>& rhs)
+	bool operator>(const pair<T1, T2>& lhs, const pair<T1, T2>& rhs)
 	{
 		return (lhs > rhs);
 	}
 
 	template <class T1, class T2>
-	bool operator>=(const pair<T1, T2>& lhs, const std::pair<T1, T2>& rhs)
+	bool operator>=(const pair<T1, T2>& lhs, const pair<T1, T2>& rhs)
 	{
 		return (lhs >= rhs);
 	}
