@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 15:55:59 by schuah            #+#    #+#             */
-/*   Updated: 2022/11/28 15:07:16 by schuah           ###   ########.fr       */
+/*   Updated: 2022/11/29 10:50:11 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ namespace ft
 			/* Default constructor */
 			vector_iterator()
 			{
-				this->_iter = this->iterator_type();
+				this->_iter = iterator_type();
 			}
 
 			/* Constructs with the given iterator type */

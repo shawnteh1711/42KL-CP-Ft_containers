@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 17:33:47 by schuah            #+#    #+#             */
-/*   Updated: 2022/11/29 09:55:31 by schuah           ###   ########.fr       */
+/*   Updated: 2022/11/29 10:40:04 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ namespace ft
 	template <class T1, class T2>
 	bool operator!=(const pair<T1, T2>& lhs, const pair<T1, T2>& rhs)
 	{
-		return (lhs != rhs);
+		return (!(lhs == rhs));
 	}
 	
 	template <class T1, class T2>
