@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 12:37:58 by schuah            #+#    #+#             */
-/*   Updated: 2022/11/28 16:49:05 by schuah           ###   ########.fr       */
+/*   Updated: 2022/11/28 17:18:30 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -582,6 +582,8 @@ namespace ft
 			pointer			_end;
 			pointer			_capacity;
 	};
+
+	/* Lexicographically compares the values in the vector */
 
 	/**
 	 * NON-MEMBER FUNCTIONS
