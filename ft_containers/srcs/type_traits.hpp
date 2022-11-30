@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:52:39 by schuah            #+#    #+#             */
-/*   Updated: 2022/11/22 14:25:50 by schuah           ###   ########.fr       */
+/*   Updated: 2022/11/30 16:19:02 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,20 +59,20 @@ namespace ft
 	 * types, including any signed, unsigned, and cv-qualified variants.
 	 * Otherwise, value is equal to false
 	 */
-	template <class> struct is_integral_base				: public false_type {};
-	template <> struct is_integral_base<bool> 				: public true_type {};
-	template <> struct is_integral_base<char>				: public true_type {};
-	template <> struct is_integral_base<unsigned char>		: public true_type {};
-	template <> struct is_integral_base<char16_t>			: public true_type {};
-	template <> struct is_integral_base<char32_t>			: public true_type {};
-	template <> struct is_integral_base<wchar_t>			: public true_type {};
-	template <> struct is_integral_base<short>				: public true_type {};
-	template <> struct is_integral_base<unsigned short>		: public true_type {};
-	template <> struct is_integral_base<int>				: public true_type {};
-	template <> struct is_integral_base<unsigned int>		: public true_type {};
-	template <> struct is_integral_base<long>				: public true_type {};
-	template <> struct is_integral_base<unsigned long>		: public true_type {};
-	template <class T> struct is_integral : is_integral_base<typename remove_cv<T>::type> {};
+	template <class> struct is_integral_v				: public false_type {};
+	template <> struct is_integral_v<bool> 				: public true_type {};
+	template <> struct is_integral_v<char>				: public true_type {};
+	template <> struct is_integral_v<unsigned char>		: public true_type {};
+	template <> struct is_integral_v<char16_t>			: public true_type {};
+	template <> struct is_integral_v<char32_t>			: public true_type {};
+	template <> struct is_integral_v<wchar_t>			: public true_type {};
+	template <> struct is_integral_v<short>				: public true_type {};
+	template <> struct is_integral_v<unsigned short>	: public true_type {};
+	template <> struct is_integral_v<int>				: public true_type {};
+	template <> struct is_integral_v<unsigned int>		: public true_type {};
+	template <> struct is_integral_v<long>				: public true_type {};
+	template <> struct is_integral_v<unsigned long>		: public true_type {};
+	template <class T> struct is_integral : is_integral_v<typename remove_cv<T>::type> {};
 
 	/**
 	 * Checks whether class T and class U are the same type. Provides the member

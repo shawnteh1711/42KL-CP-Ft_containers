@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 12:22:27 by schuah            #+#    #+#             */
-/*   Updated: 2022/11/30 15:07:59 by schuah           ###   ########.fr       */
+/*   Updated: 2022/11/30 16:35:33 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 # include "type_traits.hpp"
 
 /**
- * https://en.cppreference.com/w/cpp/iterator/iterator
  * https://en.cppreference.com/w/cpp/iterator/iterator_traits
  * https://en.cppreference.com/w/cpp/iterator/reverse_iterator
  */
@@ -116,7 +115,7 @@ namespace ft
 			/* Accesses an element by index */
 			reference	operator[](difference_type n) const
 			{
-				return (*(*this + n));
+				return (this->base()[-n - 1]);
 			}
 
 			/* Advances or decrements the iterator */
