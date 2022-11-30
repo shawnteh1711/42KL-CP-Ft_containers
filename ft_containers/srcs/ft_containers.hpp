@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 15:36:55 by schuah            #+#    #+#             */
-/*   Updated: 2022/11/29 09:19:04 by schuah           ###   ########.fr       */
+/*   Updated: 2022/11/30 15:56:15 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,12 @@
 # define FT_CONTAINERS_HPP
 
 # include <iostream>
-# include "vector.hpp"
 # include "vector_iterator.hpp"
-# include "iterator.hpp"
 # include "type_traits.hpp"
-# include "utility.hpp"
 # include "algorithm.hpp"
+# include "iterator.hpp"
+# include "utility.hpp"
+# include "vector.hpp"
+# include "stack.hpp"
 
 #endif

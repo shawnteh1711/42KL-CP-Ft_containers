@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 12:37:58 by schuah            #+#    #+#             */
-/*   Updated: 2022/11/29 12:05:17 by schuah           ###   ########.fr       */
+/*   Updated: 2022/11/30 15:19:59 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define VECTOR_HPP
 
 # include "vector_iterator.hpp"
-# include "ft_containers.hpp"
 # include "type_traits.hpp"
 # include "algorithm.hpp"
 # include "iterator.hpp"
@@ -48,7 +47,7 @@ namespace ft
 				this->_alloc = allocator_type();
 				this->_start = NULL;
 				this->_end = NULL;
-				this->_capacity = NULL;
+				this->_cap = NULL;
 			}
 
 			/* Constructs an empty container with the given allocator */
@@ -57,7 +56,7 @@ namespace ft
 				this->_alloc = alloc;
 				this->_start = NULL;
 				this->_end = NULL;
-				this->_capacity = NULL;
+				this->_cap = NULL;
 			}
 			
 			/* Constructs the container with count copies of elements with value */
@@ -67,8 +66,8 @@ namespace ft
 					return ;
 				this->_alloc = alloc;
 				this->_start = this->_alloc.allocate(count);
-				this->_capacity = this->_start + count;
-				this->_end = _capacity;
+				this->_cap = this->_start + count;
+				this->_end = _cap;
 				this->construct_with_val(this->_start, this->_end, value);
 			}
 
@@ -79,19 +78,18 @@ namespace ft
 				this->_alloc = alloc;
 				this->_start = NULL;
 				this->_end = NULL;
-				this->_capacity = NULL;
+				this->_cap = NULL;
 				this->range_init(first, last);
 			}
 
 			/* Copy constructor */
-			vector (const vector& other)
+			vector (const vector& other) : _alloc(other._alloc), _start(NULL), _end(NULL), _cap(NULL)
 			{
 				size_type	src_cap = other.capacity();
 				if (src_cap <= 0)
 					return ;
-				this->_alloc = other._alloc;
 				this->_start = this->_alloc.allocate(src_cap);
-				this->_capacity = this->_start + src_cap;
+				this->_cap = this->_start + src_cap;
 				this->_end = this->construct_from_start(this->_start, other._start, other._end);
 			}
 
@@ -279,7 +277,7 @@ namespace ft
 				this->deallocate_vector();
 				this->_start = start;
 				this->_end = end;
-				this->_capacity = this->_start + new_cap;
+				this->_cap = this->_start + new_cap;
 			}
 
 			/* Capacity: Returns the number of elements that the container has currently allocated space for */
@@ -307,7 +305,7 @@ namespace ft
 			{
 				if (count == 0)
 					return ;
-				const size_type	available = this->_capacity - this->_end;
+				const size_type	available = this->_cap - this->_end;
 				if (available >= count)
 				{
 					const size_type	post = this->end() - pos;
@@ -336,7 +334,7 @@ namespace ft
 					this->deallocate_vector();
 					this->_start = start;
 					this->_end = end;
-					this->_capacity = start + size;
+					this->_cap = start + size;
 				}
 			}
 
@@ -372,7 +370,7 @@ namespace ft
 			/* Modifiers: Appends the given element value to the end of the container */
 			void	push_back(const value_type& value)
 			{
-				if (this->_end != this->_capacity)
+				if (this->_end != this->_cap)
 				{
 					this->_alloc.construct(this->_end, value);
 					this->_end++;
@@ -403,7 +401,7 @@ namespace ft
 			{
 				std::swap(this->_start, other._start);
 				std::swap(this->_end, other._end);
-				std::swap(this->_capacity, other._capacity);
+				std::swap(this->_cap, other._cap);
 			}
 		
 		private:
@@ -412,6 +410,14 @@ namespace ft
 			{
 				if (size > this->max_size())
 					throw std::length_error("Length error");
+				return (0);
+			}
+
+			/* Helper function: If n is larger than size, throw std::out_of_range exception */
+			int	check_range(size_type n) const
+			{
+				if (n >= this->size())
+					throw std::out_of_range("Out of range");
 				return (0);
 			}
 			
@@ -481,14 +487,6 @@ namespace ft
 				}
 			}
 
-			/* Helper function: If n is larger than size, throw std::out_of_range exception */
-			int	check_range(size_type n) const
-			{
-				if (n >= this->size())
-					throw std::out_of_range("Out of range");
-				return (0);
-			}
-
 			/* Helper function: Range initialising by creating a new container */
 			template <class ForwardIt>
 			void	range_init(ForwardIt first, ForwardIt last)
@@ -497,7 +495,7 @@ namespace ft
 				if (count == 0 || this->check_max_size(count))
 					return ;
 				this->_start = this->_alloc.allocate(count);
-				this->_capacity = this->_start + count;
+				this->_cap = this->_start + count;
 				this->_end = this->construct_from_start(this->_start, first, last);
 			}
 
@@ -508,7 +506,7 @@ namespace ft
 				if (first == last)
 					return ;
 				const size_type	count = std::distance(first, last);
-				const size_type	available = this->_capacity - this->_end;
+				const size_type	available = this->_cap - this->_end;
 				this->check_max_size(count);
 				if (available >= count)
 				{
@@ -540,7 +538,7 @@ namespace ft
 					this->deallocate_vector();
 					this->_start = start;
 					this->_end = end;
-					this->_capacity = start + size;
+					this->_cap = start + size;
 				}
 			}
 
@@ -548,7 +546,7 @@ namespace ft
 			allocator_type	_alloc;
 			pointer			_start;
 			pointer			_end;
-			pointer			_capacity;
+			pointer			_cap;
 	};
 
 	/* Lexicographically compares the values in the vector */

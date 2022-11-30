@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 12:22:27 by schuah            #+#    #+#             */
-/*   Updated: 2022/11/28 16:07:12 by schuah           ###   ########.fr       */
+/*   Updated: 2022/11/30 15:07:59 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,16 @@ namespace ft
 		typedef std::random_access_iterator_tag		iterator_category;
 	};
 
+	/* const T* specialization member types */
+	template <class T> struct iterator_traits<const T*>
+	{
+		typedef std::ptrdiff_t						difference_type;
+		typedef T									value_type;
+		typedef const T*							pointer;
+		typedef const T&							reference;
+		typedef std::random_access_iterator_tag		iterator_category;
+	};
+
 	/* Reverse_iterator class */
 	template <class Iter>
 	class reverse_iterator : public std::iterator<
@@ -52,11 +62,13 @@ namespace ft
 		typename iterator_traits<Iter>::reference>
 	{
 		public:
-			typedef Iter											iterator_type;
-			typedef typename iterator_traits<Iter>::value_type		value_type;
-			typedef typename iterator_traits<Iter>::difference_type	difference_type;
-			typedef typename iterator_traits<Iter>::pointer			pointer;
-			typedef typename iterator_traits<Iter>::reference		reference;
+			/* Memver types */
+			typedef Iter												iterator_type;
+			typedef typename iterator_traits<Iter>::iterator_category	iterator_category;
+			typedef typename iterator_traits<Iter>::value_type			value_type;
+			typedef typename iterator_traits<Iter>::difference_type		difference_type;
+			typedef typename iterator_traits<Iter>::pointer				pointer;
+			typedef typename iterator_traits<Iter>::reference			reference;
 
 			/* Default constructor */
 			reverse_iterator()
@@ -64,15 +76,16 @@ namespace ft
 			}
 
 			/* Initialization constructor */
-			explicit reverse_iterator(iterator_type it)
+			explicit reverse_iterator(iterator_type x)
 			{
-				this->current = it;
+				this->current = x;
 			}
 
 			/* Copy constructor */
-			template <class It> reverse_iterator(const reverse_iterator<It>& rev_it)
+			template <class U>
+			reverse_iterator(const reverse_iterator<U>& other)
 			{
-				this->current = rev_it.base();
+				this->current = other.base();
 			}
 
 			/* Copy assignation operator */
@@ -85,13 +98,14 @@ namespace ft
 			/* Base member function. Accesses the underlying iterator */
 			iterator_type	base() const
 			{
-				return (current);
+				return (this->current);
 			}
 
 			/* Accesses the pointed-to element */
-			reference	operator*() const
+			reference operator*() const
 			{
-				return (*(current - 1));
+				Iter tmp = current;
+				return (*(--tmp));
 			}
 
 			pointer	operator->() const
@@ -152,6 +166,7 @@ namespace ft
 			}
 
 		protected:
+			/* Member objects */
 			Iter	current;
 	};
 

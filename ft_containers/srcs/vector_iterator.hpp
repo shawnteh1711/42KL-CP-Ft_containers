@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 15:55:59 by schuah            #+#    #+#             */
-/*   Updated: 2022/11/29 10:50:11 by schuah           ###   ########.fr       */
+/*   Updated: 2022/11/30 12:00:04 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,12 @@
 
 namespace ft
 {
+	/* Vector_iterator class */
 	template <typename Iter, typename Container>
 	class vector_iterator
 	{
 		public:
+			/* Member types */
     		typedef Iter												iterator_type;
 			typedef typename iterator_traits<Iter>::iterator_category	iterator_category;
 			typedef typename iterator_traits<Iter>::value_type			value_type;
@@ -130,6 +132,7 @@ namespace ft
 			}
 
 		protected:
+			/* Member objects */
 			Iter	_iter;
 	};
 
