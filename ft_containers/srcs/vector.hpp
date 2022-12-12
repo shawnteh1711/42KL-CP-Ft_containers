@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 12:37:58 by schuah            #+#    #+#             */
-/*   Updated: 2022/12/12 17:04:40 by schuah           ###   ########.fr       */
+/*   Updated: 2022/12/12 18:28:12 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,18 +28,18 @@ namespace ft
 	class vector
 	{
 		public:
-			typedef T											value_type;
-			typedef Allocator									allocator_type;
-			typedef typename allocator_type::size_type			size_type;
-			typedef typename allocator_type::difference_type	difference_type;
-			typedef value_type&									reference;
-			typedef const value_type&							const_reference;
-			typedef typename allocator_type::pointer			pointer;
-			typedef typename allocator_type::const_pointer		const_pointer;
-			typedef vector_iterator<pointer, vector>			iterator;
-			typedef vector_iterator<const_pointer, vector>		const_iterator;
-			typedef	ft::reverse_iterator<iterator>				reverse_iterator;
-			typedef	ft::reverse_iterator<const_iterator>		const_reverse_iterator;
+			typedef T										value_type;
+			typedef Allocator								allocator_type;
+			typedef std::size_t								size_type;
+			typedef std::ptrdiff_t							difference_type;
+			typedef value_type&								reference;
+			typedef const value_type&						const_reference;
+			typedef typename allocator_type::pointer		pointer;
+			typedef typename allocator_type::const_pointer	const_pointer;
+			typedef vector_iterator<pointer, vector>		iterator;
+			typedef vector_iterator<const_pointer, vector>	const_iterator;
+			typedef	ft::reverse_iterator<iterator>			reverse_iterator;
+			typedef	ft::reverse_iterator<const_iterator>	const_reverse_iterator;
 			
 			/* Default constructor */
 			vector() : _alloc(allocator_type()), _start(NULL), _end(NULL), _cap(NULL)

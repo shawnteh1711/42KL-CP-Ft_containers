@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 12:37:49 by schuah            #+#    #+#             */
-/*   Updated: 2022/12/12 18:02:51 by schuah           ###   ########.fr       */
+/*   Updated: 2022/12/12 22:28:49 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,12 @@
  */
 namespace ft
 {
-	/* Value type comparison class */
+	/* _value type comparison class */
 	template <class Key, class T, class Compare>
 	class vt_compare : public std::binary_function<Key, Key, bool>
 	{
 		public:
+			/* Public member variables */
 			bool	result_type;
 			Key		first_argument_type;
 			Key		second_argument_type;
@@ -73,7 +74,7 @@ namespace ft
 				return (key_comp()(x.first, y));
 			}
 
-			/* Swaps the value of _comp */
+			/* Swaps the _value of _comp */
 			void	swap(vt_compare& other)
 			{
 				std::swap(this->_comp, other._comp);
@@ -90,6 +91,25 @@ namespace ft
 		x.swap(y);
 	}
 	
+	template <class Key, class T, class Compare = std::less<Key>, class Allocator = std::allocator<pair<const Key, T> > >
+	class map
+	{
+		public:
+			typedef Key										key_type;
+			typedef T										mapped_type;
+			typedef pair<const Key, T>						value_type;
+			typedef std::size_t								size_type;
+			typedef std::ptrdiff_t							difference_type;
+			typedef Compare									key_compare;
+			typedef Allocator								allocator_type;
+			typedef value_type&								reference;
+			typedef const value_type&						const_reference;
+			typedef typename allocator_type::pointer		pointer;
+			typedef typename allocator_type::const_pointer	const_pointer;
+
+		private:
+			
+	}
 }
 
 #endif

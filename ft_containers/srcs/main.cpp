@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 15:36:16 by schuah            #+#    #+#             */
-/*   Updated: 2022/11/28 12:59:25 by schuah           ###   ########.fr       */
+/*   Updated: 2022/12/12 22:14:58 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ int	main(void)
 	char	*str = strdup("Hello World");
 	std::cout << 3[str] << std::endl;
 	std::cout << 4[str] << std::endl;
+
+	ft::pair<int, int> t;
 	
 	return (0);
 }

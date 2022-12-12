@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 12:22:27 by schuah            #+#    #+#             */
-/*   Updated: 2022/12/12 17:19:39 by schuah           ###   ########.fr       */
+/*   Updated: 2022/12/12 22:15:13 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ namespace ft
 		typename iterator_traits<Iter>::reference>
 	{
 		public:
-			/* Memver types */
+			/* Member types */
 			typedef Iter												iterator_type;
 			typedef typename iterator_traits<Iter>::iterator_category	iterator_category;
 			typedef typename iterator_traits<Iter>::value_type			value_type;
@@ -88,6 +88,8 @@ namespace ft
 			/* Copy assignation operator */
 			reverse_iterator	&operator=(const reverse_iterator& other)
 			{
+				if (this == &other)
+					return (*this);
 				this->current = other.current;
 				return (*this);
 			}
@@ -163,7 +165,7 @@ namespace ft
 			}
 
 		protected:
-			/* Member objects */
+			/* Protected member variables */
 			Iter	current;
 	};
 

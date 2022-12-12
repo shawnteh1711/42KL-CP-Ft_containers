@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 17:33:47 by schuah            #+#    #+#             */
-/*   Updated: 2022/12/12 17:10:54 by schuah           ###   ########.fr       */
+/*   Updated: 2022/12/12 21:59:21 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ namespace ft
 		/* Copy assignation operator */
 		pair&	operator=(const pair& other)
 		{
+			if (this == &other)
+				return (*this);
 			first = other.first;
 			second = other.second;
 			return (*this);
