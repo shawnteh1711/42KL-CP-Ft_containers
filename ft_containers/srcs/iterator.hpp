@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 12:22:27 by schuah            #+#    #+#             */
-/*   Updated: 2022/11/30 16:35:33 by schuah           ###   ########.fr       */
+/*   Updated: 2022/12/12 17:19:39 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,16 +75,14 @@ namespace ft
 			}
 
 			/* Initialization constructor */
-			explicit reverse_iterator(iterator_type x)
+			explicit reverse_iterator(iterator_type x) : current(x)
 			{
-				this->current = x;
 			}
 
 			/* Copy constructor */
 			template <class U>
-			reverse_iterator(const reverse_iterator<U>& other)
+			reverse_iterator(const reverse_iterator<U>& other) : current(other.base())
 			{
-				this->current = other.base();
 			}
 
 			/* Copy assignation operator */

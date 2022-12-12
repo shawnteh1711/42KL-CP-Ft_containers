@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 15:55:59 by schuah            #+#    #+#             */
-/*   Updated: 2022/11/30 12:00:04 by schuah           ###   ########.fr       */
+/*   Updated: 2022/12/12 17:27:05 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,24 +31,19 @@ namespace ft
 			typedef typename iterator_traits<Iter>::pointer				pointer;
 
 			/* Default constructor */
-			vector_iterator()
+			vector_iterator() : _iter(iterator_type())
 			{
-				this->_iter = iterator_type();
 			}
 
 			/* Constructs with the given iterator type */
-			explicit vector_iterator(const iterator_type& iter)
+			explicit vector_iterator(const iterator_type& iter) : _iter(iter)
 			{
-				this->_iter = iter;
 			}
 			
 			/* Copy constructor */
 			template <class It>
-			vector_iterator(const vector_iterator<It,
-				typename enable_if<is_same<It,
-				typename Container::pointer>::value, Container>::type>& iter)
+			vector_iterator(const vector_iterator<It, typename enable_if<is_same<It, typename Container::pointer>::value, Container>::type>& iter) : _iter(iter.base())
 			{
-				this->_iter = iter.base();
 			}
 
 			/* Destructor */

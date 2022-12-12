@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 12:37:43 by schuah            #+#    #+#             */
-/*   Updated: 2022/11/30 16:01:47 by schuah           ###   ########.fr       */
+/*   Updated: 2022/12/12 17:18:16 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,13 @@ namespace ft
 			typedef typename Container::const_reference	const_reference;
 
 		/* Copy-constructs the underlying container c with the contents of cont */
-		explicit stack(const container_type& cont = container_type())
+		explicit stack(const container_type& cont = container_type()) : c(cont)
 		{
-			this->c = cont;
 		}
 
 		/* Copy constructor */
-		stack(const stack& other)
+		stack(const stack& other) : c(other.c)
 		{
-			this->c = other.c;
 		}
 
 		/* Destructor */
@@ -91,6 +89,7 @@ namespace ft
 			this->c.pop_back();
 		}
 
+		/* Friend is used here to access the the private member object (c) for comparison */
 		template <class Type, class C>
 		friend bool	operator==(const stack<Type, C>& lhs, const stack<Type, C>& rhs);
 

@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 12:37:58 by schuah            #+#    #+#             */
-/*   Updated: 2022/11/30 15:19:59 by schuah           ###   ########.fr       */
+/*   Updated: 2022/12/12 17:04:40 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,21 +42,13 @@ namespace ft
 			typedef	ft::reverse_iterator<const_iterator>		const_reverse_iterator;
 			
 			/* Default constructor */
-			vector()
+			vector() : _alloc(allocator_type()), _start(NULL), _end(NULL), _cap(NULL)
 			{
-				this->_alloc = allocator_type();
-				this->_start = NULL;
-				this->_end = NULL;
-				this->_cap = NULL;
 			}
 
 			/* Constructs an empty container with the given allocator */
-			explicit vector(const allocator_type& alloc)
+			explicit vector(const allocator_type& alloc) : _alloc(alloc), _start(NULL), _end(NULL), _cap(NULL)
 			{
-				this->_alloc = alloc;
-				this->_start = NULL;
-				this->_end = NULL;
-				this->_cap = NULL;
 			}
 			
 			/* Constructs the container with count copies of elements with value */
@@ -73,17 +65,13 @@ namespace ft
 
 			/* Constructs the container with the contents of the range */
 			template <class InputIt>
-			vector(InputIt first, typename enable_if<!is_integral<InputIt>::value, InputIt>::type last, const allocator_type& alloc = allocator_type())
+			vector(InputIt first, typename enable_if<!is_integral<InputIt>::value, InputIt>::type last, const allocator_type& alloc = allocator_type()) : _alloc(alloc), _start(NULL),  _end(NULL), _cap(NULL)
 			{
-				this->_alloc = alloc;
-				this->_start = NULL;
-				this->_end = NULL;
-				this->_cap = NULL;
 				this->range_init(first, last);
 			}
 
 			/* Copy constructor */
-			vector (const vector& other) : _alloc(other._alloc), _start(NULL), _end(NULL), _cap(NULL)
+			vector(const vector& other) : _alloc(other._alloc), _start(NULL), _end(NULL), _cap(NULL)
 			{
 				size_type	src_cap = other.capacity();
 				if (src_cap <= 0)

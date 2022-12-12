@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 17:33:47 by schuah            #+#    #+#             */
-/*   Updated: 2022/11/30 13:14:55 by schuah           ###   ########.fr       */
+/*   Updated: 2022/12/12 17:10:54 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,8 @@ namespace ft
 		second_type	second;
 
 		/* Default constructor */
-		pair()
+		pair() : first(first_type()), second(second_type())
 		{
-			this->first = first_type();
-			this->second = second_type();
 		}
 
 		/* Constructs with x and y */

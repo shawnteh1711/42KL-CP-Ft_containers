@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:52:39 by schuah            #+#    #+#             */
-/*   Updated: 2022/11/30 16:19:02 by schuah           ###   ########.fr       */
+/*   Updated: 2022/12/12 17:11:52 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ namespace ft
 	template <class T, T v> struct integral_constant
 	{
 		static const bool value = v;
-
 		operator T() const { return (value); }
 		T operator()(void) const { return (value); }
 	};
