@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 12:37:49 by schuah            #+#    #+#             */
-/*   Updated: 2022/12/12 22:31:13 by schuah           ###   ########.fr       */
+/*   Updated: 2022/12/13 16:00:19 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 # define MAP_HPP
 
 # include <functional>
+# include "rbtree.hpp"
 
 /**
  * https://en.cppreference.com/w/cpp/container/map
  * https://en.cppreference.com/w/cpp/utility/functional/binary_function
- * https://youtube.com/playlist?list=PL9xmBV_5YoZNqDI8qfOZgzbqahCUmUEin
  */
 namespace ft
 {
