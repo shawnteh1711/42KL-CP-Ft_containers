@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 13:24:10 by schuah            #+#    #+#             */
-/*   Updated: 2022/12/14 15:45:52 by schuah           ###   ########.fr       */
+/*   Updated: 2022/12/14 22:03:03 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 
 /**
  * https://youtube.com/playlist?list=PL9xmBV_5YoZNqDI8qfOZgzbqahCUmUEin
+ * https://youtu.be/CTvfzU_uNKE
  * 
  * Rules:
  * 	1. Every node is either red or black
@@ -139,39 +140,50 @@ namespace ft
 	 * 	1. Insert Z and color it red
 	 * 	2. Recolor and rotate nodes to fix violation to rbtree rules
 	 *  
-	 * Insertion cases:
+	 * Post-insertion cases:
 	 * 	1. Z is root
 	 * 		- Color Z to be black
 	 * 	2. Z's uncle is red
-	 * 		- Recolor Z's parent, grandparent and uncle
-	 * 	3. Z's uncle is black (Triangle)
-	 * 		- Z, Z's parent A and grandparent B form a triangle
-	 * 		- Z is a left child, and Z's parent A is a right child
-	 * 		- Rotate Z's parent in the opposite direction of Z, so Z takes the place of A
+	 * 		- Color Z's parent and uncle to black
+	 * 		- COlor Z's grandparent to red
 	 * 
-	 * 			     BB     \					       BB
-	 * 			    /  \     \			   	   	      /  \
-	 * 	  Uncle -> BC  RA     \	     =>     Uncle -> BC  RZ <- Z
-	 * 			      /	      /						       \
-	 * 			Z -> RZ      /						       RA
+	 *              BG                  RG
+	 *             /  \                /  \
+	 *           RP    RU     ->     BP    BU
+	 *             \                   \
+	 *              RZ                  RZ
+	 * 
+	 * 	3. Z's uncle is black (Triangle)
+	 * 		- Z, Z's parent and grandparent form a triangle
+	 * 		- Z is a left child, and Z's parent is a right child
+	 * 		- Rotate Z's parent in the opposite direction of Z, so Z takes the place of its parent
+	 * 
+	 * 			    BG      \		          BG
+	 * 			   /  \      \	             /  \
+	 *           BU    RP     \     ->     BU    RZ
+	 * 			      /	      /	       	           \
+	 * 			    RZ       /	       	            RP
 	 * 
 	 * 	4. Z's uncle is black (Line)
 	 * 		- Z, Z's parent and grandparent form a line
 	 * 		- Z and Z's parent are right childs
 	 * 		- Rotate Z's grandparent in the opposite direction of Z, so A takes the place of B
-	 * 		- Recolor the original parent and grandparent after the rotation
+	 * 		- Color Z's parent to black
+	 * 		- Color Z's grandparent to red
 	 * 
-	 *               BB     \                             RA                       BA
-	 *              /  \     \                           /  \                     /  \
-	 *    Uncle -> BC  RA     \       =>                BB  RZ <- Z     =>       RB   RZ
-	 *                   \     \                       /                        /
-	 *              Z -> RZ     \            Uncle -> BC                       BC
-	 * 
+	 *              BG       \                      RP                    BP
+	 *             /  \       \                    /  \                  /  \
+	 *           BU    RP      \       ->        BG    RZ     ->       RG    RZ
+	 *                   \      \               /                     /
+	 *                    RZ     \            BU                    BU
 	 * 
 	 *  Notes: 
-	 * 		1. Example terms used: BB -> Black B, RA -> Red A
+	 * 		1. Example terms used:
+	 * 			- The first letter determines the color of the node: B for black, R for Red
+	 * 			- The second letter determines the relationship between the node and Z: G for grandparent, P for parent, U for uncle 
 	 * 		2. Same instructions are applied to the mirrored cases of 3 and 4
 	 * 		3. Examples used are branches of a RBTree
+	 * 		4. All cases apply when the condition is mirrored
 	 */
 	template <class Node>
 	void	btree_insert(Node root, Node z)
@@ -243,6 +255,82 @@ namespace ft
 			}
 		}
 	}
+	
+	/**
+	 * Deletion strategy:
+	 *	1. Find the node to be deleted using binary search tree traversal
+	 *	2. If node to be deleted has 2 non-null children, replace it with its inorder successor, then delete inorder successor
+	 *	3. If node to be deleted is red then just delete it
+	 * 	4. If node to be deleted is black but has one red child, replace it with that child and change color of child to black
+	 * 	5. Otherwise, refer to the 6 cases below
+	 * 
+	 * Deletion cases:
+	 * 	1. Double-black node is root (Terminal case)
+	 * 		- (Optional) Color Z to be black
+	 * 	2. Double-black node has a black parent, red sibling with two black child
+	 * 		- Left rotation on double-black node's parent
+	 * 		- Color double-black node's parent to red
+	 * 		- Color double-black node's sibling to black
+	 * 
+	 *              BP                        BS
+	 *             /  \                      /  \
+	 *           DB    RS        ->        RP    BR
+	 *                /  \                /  \ 
+	 *              BL    BR            DB    BL
+	 * 
+	 * 	3. Double-black node has a black parent, black sibling with two black child
+	 * 		- Color double-black node's sibling to red
+	 * 		- Double-black node's parent becomes double-black
+	 * 		- Refer to all cases again
+	 * 
+	 *              BP                     DBP
+	 *             /  \                   /  \
+	 *           DB    BS        ->      B    RS
+	 *                /  \                   /  \
+	 *              BL    BR               BL    BR
+	 * 
+	 * 	4. Double-black node has a red parent, black sibling with two black child (Terminal case)
+	 * 		- Recolor parent and sibling
+	 * 
+	 *              RP	                   BP
+	 *             /  \                   /  \
+	 *           DB    BS        ->      B    RS
+	 *                /  \                   /  \
+	 *              BL    BR               BL    BR
+	 * 
+	 * 	5. Double-black node has a black parent, a black sibling with a red left child and black right child
+	 * 		- Right rotation on double-black node's sibling
+	 * 		- Color double-black node's sibling's left child to black
+	 * 		- Color double-black node's sibling to red
+	 * 
+	 *              BP                     BP
+	 *             /  \                   /  \
+	 *           DB    BS        ->     DB    BL
+	 *                /  \                      \
+	 *              RL    BR                     RS
+	 *                                             \
+	 *                                              BR
+	 * 
+	 * 	6. Double-black node has a black sibling with a red right child (Terminal case)
+	 * 		- Left rotation on double-black node's parent
+	 * 		- Color double-black node's sibling with their parent's color
+	 * 		- Color double-black node's parent and its black sibling's right child to black
+	 * 
+	 *              RBP                      RBS
+	 *             /  \                      /  \
+	 *           DB    BS        ->        BP    BR
+	 *                /  \                /  \
+	 *              RBL   RR             B   RBL
+	 * 
+	 *  Notes: 
+	 * 		1. Example terms used:
+	 * 			- The first letter (or two) determines the color of the node: B for black, R for red, DB for double-black, RB for either red or black
+	 * 			- The last letter determines the relationship between the node and double-black: P for parent, S for sibling, L for left child, R for right child
+	 * 		2. Case 1, 4 and 6 are terminal cases, means the tree is back to be RBTree after performing the changes
+	 * 		3. Double-black node exists when the deleted node has two black child, this is to maintain the temporary balance of the RBTree until further adjustments are made
+	 * 		4. Examples used are branches of a RBTree
+	 * 		5. All cases apply when the condition is mirrored
+	 */
 }
 
 #endif

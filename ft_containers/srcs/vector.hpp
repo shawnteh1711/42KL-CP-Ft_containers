@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 12:37:58 by schuah            #+#    #+#             */
-/*   Updated: 2022/12/12 18:28:12 by schuah           ###   ########.fr       */
+/*   Updated: 2022/12/14 19:06:31 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ namespace ft
 
 			/* Constructs the container with the contents of the range */
 			template <class InputIt>
-			vector(InputIt first, typename enable_if<!is_integral<InputIt>::value, InputIt>::type last, const allocator_type& alloc = allocator_type()) : _alloc(alloc), _start(NULL),  _end(NULL), _cap(NULL)
+			vector(InputIt first, typename std::enable_if<!std::is_integral<InputIt>::value, InputIt>::type last, const allocator_type& alloc = allocator_type()) : _alloc(alloc), _start(NULL),  _end(NULL), _cap(NULL)
 			{
 				this->range_init(first, last);
 			}

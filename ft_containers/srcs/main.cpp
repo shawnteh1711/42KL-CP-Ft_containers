@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 15:36:16 by schuah            #+#    #+#             */
-/*   Updated: 2022/12/12 22:14:58 by schuah           ###   ########.fr       */
+/*   Updated: 2022/12/14 19:08:13 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,12 @@ int	main(void)
 	int arr[] = { 10, 20, 30 };
     int n = sizeof(arr) / sizeof(arr[0]);
   
-    ft::vector<int> vct5(arr, arr + n);
-	// ft::vector<int> vct6(vct4.begin(), vct4.end());
+    ft::vector<int> vct4(arr, arr + n);
+	ft::vector<int> vct6(vct3.begin(), vct3.end());
+	for (int i = 0; i < (int)vct6.size(); i++)
+	{
+		printf("%d \n", vct6[i]);
+	}
 	ft::vector<int> vct7(vct3);
 
 	char	*str = strdup("Hello World");
