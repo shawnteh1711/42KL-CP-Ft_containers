@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 13:24:10 by schuah            #+#    #+#             */
-/*   Updated: 2022/12/14 14:21:28 by schuah           ###   ########.fr       */
+/*   Updated: 2022/12/14 15:45:52 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ namespace ft
 {
 	/* Boolean to check if the node is a left child */
 	template <class Node>
-	bool is_left_child(Node node)
+	bool	node_is_left_child(Node node)
 	{
 		return (node == node->_parent->_left);
 	}
@@ -65,7 +65,7 @@ namespace ft
 	{
 		if (node->_right != NULL)
 			return (most_left_node(node->_right));
-		while (is_left_child(node) == 0)
+		while (node_is_left_child(node) == false)
 			node = node->get_parent_ptr();
 		return (node->_parent);
 	}
@@ -77,7 +77,7 @@ namespace ft
 		if (iter->_left != NULL)
 			return (most_right_node(iter->_left));
 		Node	node = static_cast<Node>(iter);
-		while (is_left_child(node))
+		while (node_is_left_child(node))
 			node = node->get_parent_ptr();
 		return (node->_parent);
 	}
@@ -91,7 +91,7 @@ namespace ft
 		if (rightchild->_left != NULL)
 			rightchild->_left->set_parent_ptr(node);
 		rightchild->_parent = node->_parent;
-		if (is_left_child(node))
+		if (node_is_left_child(node))
 			node->_parent->_left = rightchild;
 		else
 			node->get_parent_ptr()->_right = rightchild;
@@ -108,7 +108,7 @@ namespace ft
 		if (leftchild->_right != NULL)
 			leftchild->_right->set_parent_ptr(node);
 		leftchild->_parent = node->_parent;
-		if (is_left_child(node))
+		if (node_is_left_child(node))
 			node->_parent->_left = leftchild;
 		else
 			node->get_parent_ptr()->_right = leftchild;
@@ -135,7 +135,7 @@ namespace ft
 	}
 
 	/**
-	 * Startegy:
+	 * Insertion startegy:
 	 * 	1. Insert Z and color it red
 	 * 	2. Recolor and rotate nodes to fix violation to rbtree rules
 	 *  
@@ -169,9 +169,80 @@ namespace ft
 	 * 
 	 * 
 	 *  Notes: 
-	 * 		1. Same instructions are applied to the mirrored cases of 3 and 4
-	 * 		2. Examples used are branches of a RBTree
+	 * 		1. Example terms used: BB -> Black B, RA -> Red A
+	 * 		2. Same instructions are applied to the mirrored cases of 3 and 4
+	 * 		3. Examples used are branches of a RBTree
 	 */
+	template <class Node>
+	void	btree_insert(Node root, Node z)
+	{
+		/* Case 1 */
+		z->_black = (z == root);
+		while (z != root && z->get_parent_ptr()->_black == false)
+		{
+			if (node_is_left_child(z->get_parent_ptr()))
+			{
+				Node	uncle = z->get_parent_ptr()->get_parent_ptr()->_right;
+				
+				/* Case 2*/
+				if (node_is_black(uncle) == false)
+				{
+					uncle->_black = true;
+					z = z->get_parent_ptr();
+					z->_black = true;
+					z = z->get_parent_ptr();
+					z->_black = (z == root);
+				}
+				else
+				{
+					/* Case 3 */
+					if (node_is_left_child(z) == false)
+					{
+						z = z->get_parent_ptr();
+						node_rotate_left(z);
+					}
+
+					/* Case 4 */
+					z = z->get_parent_ptr();
+					z->_black = true;
+					z = z->get_parent_ptr();
+					z->_black = false;
+					node_rotate_right(z);
+					return ;
+				}
+			}
+			else
+			{
+				Node	uncle = z->get_parent_ptr()->get_parent_ptr()->_left;
+
+				if (node_is_black(uncle) == false)
+				{
+					uncle->_black = true;
+					z = z->get_parent_ptr();
+					z->_black = true;
+					z = z->get_parent_ptr();
+					z->_black = (z == root);
+				}
+				else
+				{
+					/* Case 3 */
+					if (node_is_left_child(z))
+					{
+						z = z->get_parent_ptr();
+						node_rotate_right(z);
+					}
+
+					/* Case 4 */
+					z = z->get_parent_ptr();
+					z->_black = true;
+					z = z->get_parent_ptr();
+					z->_black = false;
+					node_rotate_left(z);
+					return ;
+				}
+			}
+		}
+	}
 }
 
 #endif
