@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 13:24:10 by schuah            #+#    #+#             */
-/*   Updated: 2022/12/14 22:03:03 by schuah           ###   ########.fr       */
+/*   Updated: 2022/12/15 14:55:22 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,7 +196,7 @@ namespace ft
 			{
 				Node	uncle = z->get_parent_ptr()->get_parent_ptr()->_right;
 				
-				/* Case 2*/
+				/* Case 2 */
 				if (node_is_black(uncle) == false)
 				{
 					uncle->_black = true;
@@ -227,6 +227,7 @@ namespace ft
 			{
 				Node	uncle = z->get_parent_ptr()->get_parent_ptr()->_left;
 
+				/* Case 2 */
 				if (node_is_black(uncle) == false)
 				{
 					uncle->_black = true;
@@ -331,6 +332,164 @@ namespace ft
 	 * 		4. Examples used are branches of a RBTree
 	 * 		5. All cases apply when the condition is mirrored
 	 */
+	template <class Node>
+	void	btree_delete_fixup(Node root, Node rchild_parent)
+	{
+		Node	dbnode = NULL;
+		Node	sibling;
+
+		while (root != dbnode && node_is_black(dbnode))
+		{
+			if (dbnode == rchild_parent->_left)
+			{
+				sibling = rchild_parent->_right;
+
+				/* Case 2 */
+				if (sibling->_black == false)
+				{
+					rchild_parent->_black = false;
+					sibling->_black = true;
+					branch_rotate_left(root, rchild_parent);
+					sibling = rchild_parent->_right;
+				}
+
+				/* Case 3 and Case 4 */
+				if (node_is_black(sibling->_left) && node_is_black(sibling->_right))
+				{
+					sibling->_black = false;
+					dbnode = rchild_parent;
+					rchild_parent = dbnode->get_parent_ptr();
+				}
+				else
+				{
+					/* Case 5 */
+					if (node_is_black(sibling->_right))
+					{
+						sibling->_black = false;
+						branch_rotate_right(root, sibling);
+						sibling = rchild_parent->_right;
+						sibling->_black = true;
+					}
+
+					/* Case 6 */
+					sibling->_black = rchild_parent->_black;
+					rchild_parent->_black = true;
+					sibling->_right->_black = true;
+					branch_rotate_left(root, rchild_parent);
+					dbnode = root;
+					break ;
+				}
+			}
+			else
+			{
+				sibling = rchild_parent->_left;
+				
+				/* Case 2 */
+				if (sibling->_black == false)
+				{
+					rchild_parent->_black = false;
+					sibling->_black = true;
+					branch_rotate_right(root, rchild_parent);
+					sibling = rchild_parent->_left;
+				}
+
+				/* Case 3 and Case 4 */
+				if (node_is_black(sibling->_right) && node_is_black(sibling->_left))
+				{
+					sibling->_black = false;
+					dbnode = rchild_parent;
+					rchild_parent = dbnode->get_parent_ptr();
+				}
+				else
+				{
+					/* Case 5 */
+					if (node_is_black(sibling->_left))
+					{
+						sibling->_black = false;
+						branch_rotate_left(root, sibling);
+						sibling = rchild_parent->_left;
+						sibling->_black = true;
+					}
+
+					/* Case 6 */
+					sibling->_black = rchild_parent->_black;
+					rchild_parent->_black = true;
+					sibling->_left->_black = true;
+					branch_rotate_right(root, rchild_parent);
+					dbnode = root;
+					break ;
+				}
+			}
+		}
+
+		/* Case 1 and Case 3 if parent is red */
+		if (dbnode)
+			dbnode->_black = true;
+	}
+
+
+	template <class Node>
+	void	btree_delete(Node root, Node remove)
+	{
+		Node	lchild = remove;
+		Node	rchild_parent;
+		Node	rchild;
+		bool	removed;
+
+		/* If remove has 2 non-null children, replace it with its inorder successor */
+		if (lchild->_left != NULL && lchild->_right != NULL)
+			lchild = most_left_node(remove->_right);
+		rchild_parent = lchild->get_parent_ptr();
+		rchild = lchild->_right;
+		if (lchild->_left != NULL)
+			rchild = lchild->_left;
+		if (rchild != NULL)
+			rchild->_parent = lchild->_parent;
+		if (node_is_left_child(lchild))
+		{
+			lchild->_parent->_left = rchild;
+			if (lchild == root)
+				root = rchild;
+		}
+		else
+		{
+			if (remove->_right == lchild)
+				rchild_parent = lchild;
+			lchild->get_parent_ptr()->_right = rchild;
+		}
+		removed = lchild->_black;
+
+		/* If lchild is remove's in order successor, transplant lchild into target's place */
+		if (lchild != remove)
+		{
+			lchild->_black = remove->_black;
+			lchild->_parent = remove->_parent;
+			if (node_is_left_child(remove))
+				lchild->_parent->_left = lchild;
+			else
+				lchild->get_parent_ptr()->_right = lchild;
+			lchild->_left = remove->_left;
+			lchild->_left->set_parent_ptr(lchild);
+			lchild->_right = remove->_right;
+			if (lchild->_right)
+				lchild->_right->set_parent_ptr(lchild);
+			if (remove == root)
+				root = lchild;
+		}
+
+		/* Check if a black node was removed */
+		if (removed)
+		{
+			if (root == NULL)
+				return ;
+			if (rchild != NULL)
+			{
+				rchild->_black = true;
+				return ;
+			}
+			btree_delete_fixup(root, rchild_parent);
+		}
+	}
 }
 
 #endif
