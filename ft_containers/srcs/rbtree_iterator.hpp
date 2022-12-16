@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 13:06:52 by schuah            #+#    #+#             */
-/*   Updated: 2022/12/16 14:42:51 by schuah           ###   ########.fr       */
+/*   Updated: 2022/12/16 15:15:35 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,7 @@ namespace ft
 			};
 
 		private:
+			/* Member object */
 			leaf_node_pointer	ptr;
 	};
 
@@ -139,6 +140,7 @@ namespace ft
 	class	const_tree_iterator
 	{
 		public:
+			/* Member types */
 			typedef std::bidirectional_iterator_tag					iterator_category;
 			typedef Key												value_type;
 			typedef const Key&										reference;
@@ -206,43 +208,44 @@ namespace ft
 				const_tree_iterator	it = *this;
 				++(*this);
 				return (it);
-			}
+			};
 
 			const_tree_iterator&	operator--()
 			{
 				ptr = iter_to_prev<node_pointer>(ptr);
 				return (*this);
-			}
+			};
 
 			const_tree_iterator	operator--(int)
 			{
 				const_tree_iterator	it = *this;
 				--(*this);
 				return (it);
-			}
+			};
 
 			/* Compares the underlying pointer */
 			bool	operator==(const const_tree_iterator& other) const
 			{
 				return (ptr == other.ptr);
-			}
+			};
 
 			bool	operator==(const iterator& other) const
 			{
 				return (ptr == other.base());
-			}
+			};
 
 			bool	operator!=(const const_tree_iterator& other) const
 			{
 				return (!(*this == other));
-			}
+			};
 
 			bool	operator!=(const iterator& other) const
 			{
 				return (!(*this == other));
-			}
+			};
 
 		private:
+			/* Member object */
 			leaf_node_pointer	ptr;
 	};
 }
