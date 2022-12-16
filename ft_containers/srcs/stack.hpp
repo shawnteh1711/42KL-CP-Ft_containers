@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 12:37:43 by schuah            #+#    #+#             */
-/*   Updated: 2022/12/12 22:18:31 by schuah           ###   ########.fr       */
+/*   Updated: 2022/12/16 13:45:43 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,59 +35,59 @@ namespace ft
 			/* Copy-constructs the underlying container c with the contents of cont */
 			explicit stack(const container_type& cont = container_type()) : c(cont)
 			{
-			}
+			};
 
 			/* Copy constructor */
 			stack(const stack& other) : c(other.c)
 			{
-			}
+			};
 
 			/* Destructor */
 			~stack()
 			{
-			}
+			};
 
 			/* Copy assignation operator */
 			stack& operator=(const stack& other)
 			{
 				this->c = other.c;
 				return (*this);
-			}
+			};
 
 			/* Element access: Returns reference to the top element in the stack */
 			reference	top()
 			{
 				return (this->c.back());
-			}
+			};
 
 			const_reference	top() const
 			{
 				return (this->c.back());
-			}
+			};
 
 			/* Capacity: Checks if the underlying container has no elements */
 			bool	empty() const
 			{
 				return (this->c.empty());
-			}
+			};
 
 			/* Capacity: Returns the number of elements in the underlying container */
 			size_type	size() const
 			{
 				return (this->c.size());
-			}
+			};
 
 			/* Modifiers: Pushes the given element value to the top of the stack */
 			void	push(const value_type& value)
 			{
 				this->c.push_back(value);
-			}
+			};
 
 			/* Modifiers: Removes the top element from the stack */
 			void	pop()
 			{
 				this->c.pop_back();
-			}
+			};
 
 			/* Friend is used here to access the the private member object (c) for comparison */
 			template <class Type, class C>
@@ -106,37 +106,37 @@ namespace ft
 	bool	operator==(const stack<T, Container>& lhs, const stack<T, Container>& rhs)
 	{
 		return (lhs.c == rhs.c);
-	}
+	};
 
 	template <class T, class Container>
 	bool	operator!=(const stack<T, Container>& lhs, const stack<T, Container>& rhs)
 	{
 		return (!(lhs == rhs));
-	}
+	};
 
 	template <class T, class Container>
 	bool	operator<(const stack<T, Container>& lhs, const stack<T, Container>& rhs)
 	{
 		return (lhs.c < rhs.c);
-	}
+	};
 
 	template <class T, class Container>
 	bool	operator<=(const stack<T, Container>& lhs, const stack<T, Container>& rhs)
 	{
 		return (!(rhs < lhs));
-	}
+	};
 
 	template <class T, class Container>
 	bool	operator>(const stack<T, Container>& lhs, const stack<T, Container>& rhs)
 	{
 		return (rhs < lhs);
-	}
+	};
 
 	template <class T, class Container>
 	bool	operator>=(const stack<T, Container>& lhs, const stack<T, Container>& rhs)
 	{
 		return (!(lhs < rhs));
-	}
+	};
 }
 
 #endif

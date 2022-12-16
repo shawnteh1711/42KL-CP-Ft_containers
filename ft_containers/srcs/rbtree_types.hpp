@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 19:05:32 by schuah            #+#    #+#             */
-/*   Updated: 2022/12/14 13:28:36 by schuah           ###   ########.fr       */
+/*   Updated: 2022/12/16 13:57:16 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ namespace ft
 					return (*this);
 				this->_left = other._left;
 				return (*this);
-			}
+			};
 	};
 
 	/* Node class of RBTree */
@@ -83,11 +83,12 @@ namespace ft
 				this->_parent = other._parent;
 				this->_black = other._black;
 				this->_value = other._value;
-			}
+				return (*this);
+			};
 
 			/* Getter and setter function for parent of node */
-			node_pointer	get_parent_ptr() const { return (static_cast<node_pointer>(this->_parent)); }
-			void	set_parent_ptr(node_pointer parent) { this->_parent = static_cast<leaf_node_pointer>(parent); }
+			node_pointer	get_parent_ptr() const { return (static_cast<node_pointer>(this->_parent)); };
+			void	set_parent_ptr(node_pointer parent) { this->_parent = static_cast<leaf_node_pointer>(parent); };
 	};
 }
 

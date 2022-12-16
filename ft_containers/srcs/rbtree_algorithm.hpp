@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 13:24:10 by schuah            #+#    #+#             */
-/*   Updated: 2022/12/15 14:55:22 by schuah           ###   ########.fr       */
+/*   Updated: 2022/12/16 13:05:48 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -427,7 +427,7 @@ namespace ft
 			dbnode->_black = true;
 	}
 
-
+	/* Handles preparation and deletes a node. Calls btree_delete_fixup after deletion to abide rules of RBTree */
 	template <class Node>
 	void	btree_delete(Node root, Node remove)
 	{

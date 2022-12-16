@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 12:37:58 by schuah            #+#    #+#             */
-/*   Updated: 2022/12/15 13:18:20 by schuah           ###   ########.fr       */
+/*   Updated: 2022/12/16 13:49:39 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,10 @@ namespace ft
 			typedef	ft::reverse_iterator<const_iterator>	const_reverse_iterator;
 			
 			/* Default constructor */
-			vector() : _alloc(allocator_type()), _start(NULL), _end(NULL), _cap(NULL)
-			{
-			}
+			vector() : _alloc(allocator_type()), _start(NULL), _end(NULL), _cap(NULL) {};
 
 			/* Constructs an empty container with the given allocator */
-			explicit vector(const allocator_type& alloc) : _alloc(alloc), _start(NULL), _end(NULL), _cap(NULL)
-			{
-			}
+			explicit vector(const allocator_type& alloc) : _alloc(alloc), _start(NULL), _end(NULL), _cap(NULL) {};
 			
 			/* Constructs the container with count copies of elements with value */
 			explicit vector(size_type count, const value_type& value = value_type(), const allocator_type& alloc = allocator_type())
@@ -61,14 +57,14 @@ namespace ft
 				this->_cap = this->_start + count;
 				this->_end = _cap;
 				this->construct_with_val(this->_start, this->_end, value);
-			}
+			};
 
 			/* Constructs the container with the contents of the range */
 			template <class InputIt>
 			vector(InputIt first, typename std::enable_if<!std::is_integral<InputIt>::value, InputIt>::type last, const allocator_type& alloc = allocator_type()) : _alloc(alloc), _start(NULL),  _end(NULL), _cap(NULL)
 			{
 				this->range_init(first, last);
-			}
+			};
 
 			/* Copy constructor */
 			vector(const vector& other) : _alloc(other._alloc), _start(NULL), _end(NULL), _cap(NULL)
@@ -79,7 +75,7 @@ namespace ft
 				this->_start = this->_alloc.allocate(src_cap);
 				this->_cap = this->_start + src_cap;
 				this->_end = this->construct_from_start(this->_start, other._start, other._end);
-			}
+			};
 
 			/* Deconstructor */
 			~vector()
@@ -89,7 +85,7 @@ namespace ft
 					this->destroy_from_start(this->_start);
 					this->_alloc.deallocate(this->_start, capacity());
 				}
-			}
+			};
 
 			/* Copy assignation operator */
 			vector&	operator=(const vector& other)
@@ -98,7 +94,7 @@ namespace ft
 					return (*this);
 				this->assign(other.begin(), other.end());
 				return (*this);
-			}
+			};
 
 			/* Replaces the contents with count copies of value */
 			void	assign(size_type count, const T& value)
@@ -119,139 +115,139 @@ namespace ft
 					pointer	it = std::fill_n(this->_start, count, value);
 					this->destroy_from_start(it);
 				}
-			}
+			};
 
 			/* Replaces the contents with copies of those in range [first, last] */
 			template <class InputIt>
 			void	assign(InputIt first, typename enable_if<!is_integral<InputIt>::value, InputIt>::type last)
 			{
 				this->range_assign(first, last);
-			}
+			};
 
 			/* Returns the allocator associated with the container */
 			allocator_type	get_allocator() const
 			{
 				return (this->_alloc);
-			}
+			};
 
 			/* Element access: Returns a reference to the element at specifies location pos, with bounds checking */
 			reference	at(size_type pos)
 			{
 				this->check_range(pos);
 				return ((*this)[pos]);
-			}
+			};
 
 			const_reference	at(size_type pos) const
 			{
 				this->check_range(pos);
 				return ((*this)[pos]);
-			}
+			};
 
 			/* Element access: Returns a reference to the element at specified location pos. No bounds checking is performed */
 			reference	operator[](size_type pos)
 			{
 				return (*(this->_start + pos));
-			}
+			};
 
 			const_reference	operator[](size_type pos) const
 			{
 				return (*(this->_start + pos));
-			}
+			};
 
 			/* Element access: Returns a reference to the first element in the container */
 			reference	front()
 			{
 				return (*this->begin());
-			}
+			};
 
 			const_reference	front() const
 			{
 				return (*this->begin());
-			}
+			};
 
 			/* Element access: Returns a reference to the last element in the container */
 			reference	back()
 			{
 				return (*(this->end() - 1));
-			}
+			};
 
 			const_reference	back() const
 			{
 				return (*(this->end() - 1));
-			}
+			};
 
 			/* Element access: Returns pointer to the underlying array serving as element storage */
 			pointer	data()
 			{
 				return (this->_start);
-			}
+			};
 
 			const_pointer	data() const
 			{
 				return (this->_start);
-			}
+			};
 
 			/* Iterators: Returns an iterator to the first element of the vector */
 			iterator	begin()
 			{
 				return (iterator(this->_start));
-			}
+			};
 
 			const_iterator	begin() const
 			{
 				return (const_iterator(this->_start));
-			}
+			};
 			
 			/* Iterators: Returns an iterator to the element following the last element of the vector */
 			iterator	end()
 			{
 				return (iterator(this->_end));
-			}
+			};
 
 			const_iterator	end() const
 			{
 				return (const_iterator(this->_end));
-			}
+			};
 
 			/* Iterators: Returns a reverse iterator to the first element of the reversed vector */
 			reverse_iterator	rbegin()
 			{
 				return (reverse_iterator(this->end()));
-			}
+			};
 
 			const_reverse_iterator	rbegin() const
 			{
 				return (reverse_iterator(this->end()));
-			}
+			};
 
 			/* Iterators: Returns a reverse iterator to the element following the last element of the reversed vector */
 			reverse_iterator	rend()
 			{
 				return (reverse_iterator(this->begin()));
-			}
+			};
 
 			const_reverse_iterator	rend() const
 			{
 				return (reverse_iterator(this->begin()));
-			}
+			};
 
 			/* Capacity: Checks if the container has no elements */
 			bool	empty() const
 			{
 				return (this->begin() == this->end());
-			}
+			};
 
 			/* Capacity: Returns the number of elements in the container */
 			size_type	size() const
 			{
 				return (std::distance(this->begin(), this->end()));
-			}
+			};
 
 			/* Capacity: Returns the maximum number of elements the container is able to hold due to system or library implementation limitations */
 			size_type	max_size() const
 			{
 				return (std::min(this->_alloc.max_size(), static_cast<size_type>(std::numeric_limits<difference_type>::max())));
-			}
+			};
 
 			/* Capacity: Increase the capacity of the vector (Allocation might be needed) to a value that's greator or equal to new_cap */
 			void	reserve(size_type new_cap)
@@ -266,19 +262,19 @@ namespace ft
 				this->_start = start;
 				this->_end = end;
 				this->_cap = this->_start + new_cap;
-			}
+			};
 
 			/* Capacity: Returns the number of elements that the container has currently allocated space for */
 			size_type	capacity () const
 			{
 				return (static_cast<size_type>(this->_end - this->_start));
-			}
+			};
 
 			/* Modifiers: Erases all elements from the container */
 			void	clear()
 			{
 				this->destroy_from_start(this->_start);
-			}
+			};
 
 			/* Modifiers: Insert value before pos */
 			iterator	insert(iterator pos, const value_type& value)
@@ -286,7 +282,7 @@ namespace ft
 				const size_type	index = pos - this->begin();
 				this->insert(pos, 1, value);
 				return (iterator(this->_start + index));
-			}
+			};
 
 			/* Modifiers: Inserts count copies of the value before pos */
 			void	insert(iterator pos, size_type count, const value_type& value)
@@ -324,14 +320,14 @@ namespace ft
 					this->_end = end;
 					this->_cap = start + size;
 				}
-			}
+			};
 
 			/* Modifiers: Insert elements from range [first, last] before pos */
 			template <class InputIt>
 			void	insert(iterator pos, InputIt first, typename enable_if<!is_integral<InputIt>::value, InputIt>::type last)
 			{
 				this->range_insert(pos, first, last);
-			}
+			};
 
 			/* Modifiers: Removes the element at pos */
 			iterator	erase(iterator pos)
@@ -341,7 +337,7 @@ namespace ft
 				this->_end--;
 				this->_alloc.destroy(this->_end);
 				return (pos);
-			}
+			};
 
 			/* Modifiers: Removes the elements in the range [first, last] */
 			iterator	erase(iterator first, iterator last)
@@ -353,7 +349,7 @@ namespace ft
 				pointer	end = first.base() + (this->end() - last);
 				this->destroy_from_start(end);
 				return (first);
-			}
+			};
 
 			/* Modifiers: Appends the given element value to the end of the container */
 			void	push_back(const value_type& value)
@@ -365,14 +361,14 @@ namespace ft
 				}
 				else
 					this->insert(this->end(), value);
-			}
+			};
 
 			/* Modifiers: Removes the last element of the element */
 			void	pop_back()
 			{
 				this->_end--;
 				this->_alloc.destroy(this->_end);
-			}
+			};
 
 			/* Modifiers: Resizes the container to contain count element */
 			void	resize(size_type count, value_type value = value_type())
@@ -382,7 +378,7 @@ namespace ft
 					this->insert(this->end(), count - len, value);
 				else if (count < len)
 					this->destroy_from_start(this->_start + count);
-			}
+			};
 
 			/* Modifiers: Exchanges the contents of the container with those of other */
 			void	swap(vector& other)
@@ -390,7 +386,7 @@ namespace ft
 				std::swap(this->_start, other._start);
 				std::swap(this->_end, other._end);
 				std::swap(this->_cap, other._cap);
-			}
+			};
 		
 		private:
 			/* Helper function: If size is larger than max size, throw std::length_error exception */
@@ -399,7 +395,7 @@ namespace ft
 				if (size > this->max_size())
 					throw std::length_error("Length error");
 				return (0);
-			}
+			};
 
 			/* Helper function: If n is larger than size, throw std::out_of_range exception */
 			int	check_range(size_type n) const
@@ -407,7 +403,7 @@ namespace ft
 				if (n >= this->size())
 					throw std::out_of_range("Out of range");
 				return (0);
-			}
+			};
 			
 			/* Helper function: Range constructor (Using src as value) */
 			template <class Iterator>
@@ -416,7 +412,7 @@ namespace ft
 				for (; start != end; start++, dst++)
 					this->_alloc.construct(dst, *start);
 				return (dst);
-			}
+			};
 
 			/* Helper function: Range constructor (Using val as value) */
 			pointer	construct_with_val(pointer dst, const_pointer end, const_reference val)
@@ -424,7 +420,7 @@ namespace ft
 				for (; dst != end; dst++)
 					this->_alloc.construct(dst, val);
 				return (dst);
-			}
+			};
 
 			/* Helper function: Clears and deallocates this vector */
 			void	deallocate_vector()
@@ -434,7 +430,7 @@ namespace ft
 					this->clear();
 					this->_alloc.deallocate(this->_start, this->capacity());
 				}
-			}
+			};
 
 			/* Helper function: Destroys allocated memory from the start */
 			void	destroy_from_start(pointer start)
@@ -442,7 +438,7 @@ namespace ft
 				for (pointer cur = start; cur != this->_end; cur++)
 					this->_alloc.destroy(cur);
 				this->_end = start;
-			}
+			};
 
 			/* Helper function: Returns the size after count expansions */
 			size_type	get_expansion(size_type count) const
@@ -454,7 +450,7 @@ namespace ft
 				if (cap >= max / 2)
 					return (max);
 				return (std::max(size() + count, cap * 2));
-			}
+			};
 
 			/* Helper function: Assigns range [first, last] by copying */
 			template <class ForwardIt>
@@ -473,7 +469,7 @@ namespace ft
 					std::copy(first, it, this->begin());
 					this->insert(this->end(), it, last);
 				}
-			}
+			};
 
 			/* Helper function: Range initialising by creating a new container */
 			template <class ForwardIt>
@@ -485,7 +481,7 @@ namespace ft
 				this->_start = this->_alloc.allocate(count);
 				this->_cap = this->_start + count;
 				this->_end = this->construct_from_start(this->_start, first, last);
-			}
+			};
 
 			/* Helper function: Inserts from range [first, last] into pos by constructing*/
 			template <class ForwardIt>
@@ -528,7 +524,7 @@ namespace ft
 					this->_end = end;
 					this->_cap = start + size;
 				}
-			}
+			};
 
 			/* Private member variables */
 			allocator_type	_alloc;
@@ -542,44 +538,44 @@ namespace ft
 	bool	operator==(const vector<T, Alloc>& lhs, const vector<T, Alloc>& rhs)
 	{
 		return (lhs.size() == rhs.size() && ft::equal(lhs.begin(), lhs.end(), rhs.begin()));
-	}
+	};
 
 	template <class T, class Alloc>
 	bool	operator!=(const vector<T, Alloc>& lhs, const vector<T, Alloc>& rhs)
 	{
 		return !(lhs == rhs);
-	}
+	};
 
 	template <class T, class Alloc>
 	bool	operator<(const vector<T, Alloc>& lhs, const vector<T, Alloc>& rhs)
 	{
 		return (ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()));
-	}
+	};
 
 	template <class T, class Alloc>
 	bool	operator<=(const vector<T, Alloc>& lhs, const vector<T, Alloc>& rhs)
 	{
 		return !(rhs < lhs);
-	}
+	};
 
 	template <class T, class Alloc>
 	bool	operator>(const vector<T, Alloc>& lhs, const vector<T, Alloc>& rhs)
 	{
 		return (rhs < lhs);
-	}
+	};
 
 	template <class T, class Alloc>
 	bool	operator>=(const vector<T, Alloc>& lhs, const vector<T, Alloc>& rhs)
 	{
 		return !(lhs < rhs);
-	}
+	};
 
 	/* Swaps the contents of lhs and rhs */
 	template <class T, class Alloc>
 	void	swap(vector<T, Alloc>& lhs, vector<T, Alloc>& rhs)
 	{
 		lhs.swap(rhs);
-	}
+	};
 }
 
 #endif
