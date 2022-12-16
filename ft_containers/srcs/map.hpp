@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 12:37:49 by schuah            #+#    #+#             */
-/*   Updated: 2022/12/13 16:00:19 by schuah           ###   ########.fr       */
+/*   Updated: 2022/12/16 15:02:50 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define MAP_HPP
 
 # include <functional>
-# include "rbtree.hpp"
+# include "iterator.hpp"
 
 /**
  * https://en.cppreference.com/w/cpp/container/map
@@ -111,7 +111,7 @@ namespace ft
 
 		private:
 			
-	}
+	};
 }
 
 #endif
