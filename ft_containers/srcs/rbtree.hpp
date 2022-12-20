@@ -6,16 +6,14 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 14:56:56 by schuah            #+#    #+#             */
-/*   Updated: 2022/12/20 14:44:43 by schuah           ###   ########.fr       */
+/*   Updated: 2022/12/20 17:46:17 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RBTREE_HPP
 # define RBTREE_HPP
 
-# include "rbtree_algorithm.hpp"
 # include "rbtree_iterator.hpp"
-# include "utility.hpp"
 
 namespace ft
 {
@@ -219,7 +217,7 @@ namespace ft
 					other.end_node()->_left->_parent = other.end_node();
 			}
 
-			/* Lookup: Returns the number of elements with key */
+			/* Lookup: Returns the number of elements matching specific key */
 			template <class Key>
 			size_type	count(const Key& key) const
 			{

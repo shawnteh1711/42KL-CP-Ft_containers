@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 15:36:16 by schuah            #+#    #+#             */
-/*   Updated: 2022/12/14 19:08:13 by schuah           ###   ########.fr       */
+/*   Updated: 2022/12/20 17:13:17 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ int	main(void)
 	std::cout << 4[str] << std::endl;
 
 	ft::pair<int, int> t;
+
+	ft::map<char, int> yes;
 	
 	return (0);
 }

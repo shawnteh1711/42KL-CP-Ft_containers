@@ -6,14 +6,15 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 19:05:32 by schuah            #+#    #+#             */
-/*   Updated: 2022/12/16 13:57:16 by schuah           ###   ########.fr       */
+/*   Updated: 2022/12/20 17:46:30 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RBTREE_TYPES_HPP
 # define RBTREE_TYPES_HPP
 
-#include "utility.hpp"
+# include "utility.hpp"
+# include "algorithm.hpp"
 
 namespace ft
 {

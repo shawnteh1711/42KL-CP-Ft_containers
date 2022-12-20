@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 13:06:52 by schuah            #+#    #+#             */
-/*   Updated: 2022/12/20 14:43:59 by schuah           ###   ########.fr       */
+/*   Updated: 2022/12/20 17:32:52 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define RBTREE_ITERATOR_HPP
 
 # include "rbtree_algorithm.hpp"
-# include "rbtree_types.hpp"
 
 namespace ft
 {

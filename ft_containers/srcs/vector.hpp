@@ -6,17 +6,16 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 12:37:58 by schuah            #+#    #+#             */
-/*   Updated: 2022/12/20 15:05:00 by schuah           ###   ########.fr       */
+/*   Updated: 2022/12/20 17:45:35 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef VECTOR_HPP
 # define VECTOR_HPP
 
+# include <memory>
 # include "vector_iterator.hpp"
-# include "type_traits.hpp"
 # include "algorithm.hpp"
-# include "iterator.hpp"
 
 /**
  * https://en.cppreference.com/w/cpp/container/vector
@@ -543,7 +542,7 @@ namespace ft
 	template <class T, class Alloc>
 	bool	operator!=(const vector<T, Alloc>& lhs, const vector<T, Alloc>& rhs)
 	{
-		return !(lhs == rhs);
+		return (!(lhs == rhs));
 	}
 
 	template <class T, class Alloc>
@@ -555,7 +554,7 @@ namespace ft
 	template <class T, class Alloc>
 	bool	operator<=(const vector<T, Alloc>& lhs, const vector<T, Alloc>& rhs)
 	{
-		return !(rhs < lhs);
+		return (!(rhs < lhs));
 	}
 
 	template <class T, class Alloc>
@@ -567,7 +566,7 @@ namespace ft
 	template <class T, class Alloc>
 	bool	operator>=(const vector<T, Alloc>& lhs, const vector<T, Alloc>& rhs)
 	{
-		return !(lhs < rhs);
+		return (!(lhs < rhs));
 	}
 
 	/* Swaps the contents of lhs and rhs */
