@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 13:06:52 by schuah            #+#    #+#             */
-/*   Updated: 2022/12/16 15:15:35 by schuah           ###   ########.fr       */
+/*   Updated: 2022/12/20 14:43:59 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,13 @@ namespace ft
 			typedef Key*											pointer;
 			typedef T												difference_type;
 			typedef const_tree_iterator<Key, T>						const_iterator;
+		
+		private:
+			/* Helper types */
 			typedef typename rbt_node_types<Key>::leaf_node_pointer	leaf_node_pointer;
 			typedef typename rbt_node_types<Key>::node_pointer		node_pointer;
 
+		public:
 			/* Orthodox canonical form */
 			tree_iterator() : ptr(NULL) {};
 			tree_iterator(const tree_iterator &other) : ptr(other.ptr) {};

@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 15:55:59 by schuah            #+#    #+#             */
-/*   Updated: 2022/12/19 14:23:49 by schuah           ###   ########.fr       */
+/*   Updated: 2022/12/20 15:04:54 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ namespace ft
 			};
 
 			/* Constructs with the given iterator type */
-			explicit vector_iterator(const iterator_type& iter) : _iter(iter) {};
+			explicit	vector_iterator(const iterator_type& iter) : _iter(iter) {};
 
 			/* Base member function. Accesses the underlying iterator */
 			const iterator_type&	base() const

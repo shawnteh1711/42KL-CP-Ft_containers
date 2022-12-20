@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 14:56:56 by schuah            #+#    #+#             */
-/*   Updated: 2022/12/19 20:30:58 by schuah           ###   ########.fr       */
+/*   Updated: 2022/12/20 14:44:43 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,16 @@ namespace ft
 			typedef typename allocator_type::pointer							pointer;
 			typedef const_tree_iterator<value_type, difference_type>			const_iterator;
 			typedef tree_iterator<value_type, difference_type>					iterator;
+
+		private:
+			/* Helper types */
 			typedef typename rbt_node_types<value_type>::node_type				node_type;
 			typedef typename rbt_node_types<value_type>::leaf_node_type			leaf_node_type;
 			typedef typename rbt_node_types<value_type>::node_pointer			node_pointer;
 			typedef typename rbt_node_types<value_type>::leaf_node_pointer		leaf_node_pointer;
 			typedef typename allocator_type::template rebind<node_type>::other	node_allocator;
 
+		public:
 			/* Constructor with value_compare */
 			rbtree(const value_compare& comp) : _node_alloc(node_allocator()), _value_alloc(allocator_type()), _comp(comp), _leaf_node(leaf_node_type()), _leaf_node_ptr(this->end_node()), _size(0) {};
 

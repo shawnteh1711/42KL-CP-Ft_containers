@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 12:37:43 by schuah            #+#    #+#             */
-/*   Updated: 2022/12/19 14:25:21 by schuah           ###   ########.fr       */
+/*   Updated: 2022/12/20 15:05:36 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,19 +33,13 @@ namespace ft
 			typedef typename Container::const_reference	const_reference;
 
 			/* Copy-constructs the underlying container c with the contents of cont */
-			explicit stack(const container_type& cont = container_type()) : c(cont)
-			{
-			};
+			explicit	stack(const container_type& cont = container_type()) : c(cont) {};
 
 			/* Copy constructor */
-			stack(const stack& other) : c(other.c)
-			{
-			};
+			stack(const stack& other) : c(other.c) {};
 
 			/* Destructor */
-			~stack()
-			{
-			};
+			~stack() {};
 
 			/* Copy assignation operator */
 			stack& operator=(const stack& other)

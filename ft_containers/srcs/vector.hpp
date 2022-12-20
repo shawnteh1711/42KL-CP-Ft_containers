@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 12:37:58 by schuah            #+#    #+#             */
-/*   Updated: 2022/12/19 21:09:04 by schuah           ###   ########.fr       */
+/*   Updated: 2022/12/20 15:05:00 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,10 @@ namespace ft
 			vector() : _alloc(allocator_type()), _start(NULL), _end(NULL), _cap(NULL) {};
 
 			/* Constructs an empty container with the given allocator */
-			explicit vector(const allocator_type& alloc) : _alloc(alloc), _start(NULL), _end(NULL), _cap(NULL) {};
+			explicit	vector(const allocator_type& alloc) : _alloc(alloc), _start(NULL), _end(NULL), _cap(NULL) {};
 			
 			/* Constructs the container with count copies of elements with value */
-			explicit vector(size_type count, const value_type& value = value_type(), const allocator_type& alloc = allocator_type())
+			explicit	vector(size_type count, const value_type& value = value_type(), const allocator_type& alloc = allocator_type())
 			{
 				if (count <= 0 || this->check_max_size(count))
 					return ;

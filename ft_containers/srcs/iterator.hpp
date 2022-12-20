@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 12:22:27 by schuah            #+#    #+#             */
-/*   Updated: 2022/12/12 22:15:13 by schuah           ###   ########.fr       */
+/*   Updated: 2022/12/20 15:06:27 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,20 +70,14 @@ namespace ft
 			typedef typename iterator_traits<Iter>::reference			reference;
 
 			/* Default constructor */
-			reverse_iterator()
-			{
-			}
+			reverse_iterator() {};
 
 			/* Initialization constructor */
-			explicit reverse_iterator(iterator_type x) : current(x)
-			{
-			}
+			explicit	reverse_iterator(iterator_type x) : current(x) {};
 
 			/* Copy constructor */
 			template <class U>
-			reverse_iterator(const reverse_iterator<U>& other) : current(other.base())
-			{
-			}
+			reverse_iterator(const reverse_iterator<U>& other) : current(other.base()) {};
 
 			/* Copy assignation operator */
 			reverse_iterator	&operator=(const reverse_iterator& other)
@@ -92,77 +86,77 @@ namespace ft
 					return (*this);
 				this->current = other.current;
 				return (*this);
-			}
+			};
 			
 			/* Base member function. Accesses the underlying iterator */
 			iterator_type	base() const
 			{
 				return (this->current);
-			}
+			};
 
 			/* Accesses the pointed-to element */
 			reference operator*() const
 			{
 				Iter tmp = current;
 				return (*(--tmp));
-			}
+			};
 
 			pointer	operator->() const
 			{
 				return (&(this->operator*()));
-			}
+			};
 		
 			/* Accesses an element by index */
 			reference	operator[](difference_type n) const
 			{
 				return (this->base()[-n - 1]);
-			}
+			};
 
 			/* Advances or decrements the iterator */
 			reverse_iterator&	operator++()
 			{
 				current--;
 				return (*this);
-			}
+			};
 
 			reverse_iterator&	operator--()
 			{
 				current++;
 				return (*this);
-			}
+			};
 
 			reverse_iterator	operator++(int)
 			{
 				return (reverse_iterator(current--));
-			}
+			};
 
 
 			reverse_iterator	operator--(int)
 			{
 				return (reverse_iterator(current++));
-			}
+			};
 
 			reverse_iterator	operator+(difference_type n) const
 			{
 				return (reverse_iterator(current - n));
-			}
+			};
 
 			reverse_iterator	operator-(difference_type n) const
 			{
 				return (reverse_iterator(current + n));
-			}
+			};
 
 			reverse_iterator	operator+=(difference_type n)
 			{
 				current -= n;
 				return (*this);
-			}
+			};
 
 			reverse_iterator	operator-=(difference_type n)
 			{
 				current += n;
 				return (*this);
-			}
+			};
 
 		protected:
 			/* Protected member variables */
