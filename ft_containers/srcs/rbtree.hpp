@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 14:56:56 by schuah            #+#    #+#             */
-/*   Updated: 2022/12/16 21:42:56 by schuah           ###   ########.fr       */
+/*   Updated: 2022/12/19 20:30:58 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,9 @@
 
 # include "rbtree_algorithm.hpp"
 # include "rbtree_iterator.hpp"
+# include "utility.hpp"
 
-namespace fd
+namespace ft
 {
 	/* Red-black tree class */
 	template <class T, class Compare, class Allocator>
@@ -124,6 +125,79 @@ namespace fd
 				this->_size = 0;
 			}
 
+			/* Modifiers: Inserts value */
+			pair<iterator, bool>	insert(const value_type& value)
+			{
+				leaf_node_pointer	parent;
+				node_pointer&		child_ref = get_pos_key(parent, value);
+				iterator			it(child_ref);
+				bool				inserted = false;
+
+				if (child_ref == NULL)
+				{
+					it = insert_pos(child_ref, parent, value);
+					inserted = true;
+				}
+				return (ft::make_pair(it, inserted));
+			}
+
+			/* Modifiers: Inserts value in the position as close as possible to the possible to the position just prior to pos */
+			iterator	insert(const_iterator pos, const value_type& value)
+			{
+				leaf_node_pointer	parent;
+				node_pointer		temp;
+				node_pointer&		child = get_pos_iterator(iterator(pos.base()), parent, value, temp);
+				iterator			it(child);
+			
+				if (child == NULL)
+					it = insert_pos(child, parent, value);
+				return (it);
+			}
+
+			/* Modifiers: Inserts elements from rnage [first, last] */
+			template <class InputIt>
+			void	insert(InputIt first, InputIt last)
+			{
+				for (; first != last; ++first)
+					insert(*first);
+			}
+
+			/* Modifiers: Removes the element at pos */
+			iterator	erase(const_iterator pos)
+			{
+				const_iterator	next(pos);
+				++next;
+
+				if (this->_leaf_node_ptr == pos.base())
+					this->_leaf_node_ptr = next.base();
+				
+				node_pointer	ptr = pos.node_ptr();
+				btree_delete(end_node()->_left, ptr);
+				this->_value_alloc.destroy(&ptr->_value);
+				this->_node_alloc.deallocate(ptr, 1);
+				this->_size--;
+				return (iterator(next.base()));
+			}
+
+			/* Modifiers: Removes the elements in the range [first, last), which must be a valid range in *this */
+			void	erase(const_iterator first, const_iterator last)
+			{
+				while (first != last)
+					first = erase(first);
+			}
+
+			/* Modifiers: Removes the element (if one exists) with the key */
+			template <class Key>
+			size_type	erase(const Key& key)
+			{
+				const_iterator	it = this->find(key);
+
+				if (it == this->end())
+					return (0);
+				erase(it);
+				return (1);
+			}
+
 			/* Modifiers: Swaps the contents */
 			void	swap(rbtree& other)
 			{
@@ -139,6 +213,69 @@ namespace fd
 					other._leaf_node_ptr = other.end_node();
 				else
 					other.end_node()->_left->_parent = other.end_node();
+			}
+
+			/* Lookup: Returns the number of elements with key */
+			template <class Key>
+			size_type	count(const Key& key) const
+			{
+				return (this->get_node_pointer(key) == NULL) ? 0 : 1;
+			}
+
+			/* Lookup: Finds element with specific key */
+			template <class Key>
+			iterator	find(const Key& key)
+			{
+				leaf_node_pointer	ptr = this->get_node_pointer(key);
+				return (ptr == NULL) ? iterator(end_node()) : iterator(ptr);
+			}
+
+			template <class Key>
+			const_iterator	find(const Key& key) const
+			{
+				leaf_node_pointer	ptr = this->get_node_pointer(key);
+				return (ptr == NULL) ? const_iterator(end_node()) : const_iterator(ptr);
+			}
+
+			/* Compares the keys to key */
+			template <class Key>
+			pair<iterator, iterator>	equal_range(const Key& key)
+			{
+				pair<leaf_node_pointer, leaf_node_pointer>	range = get_equal_range(key);
+				return (ft::make_pair(iterator(range.first), iterator(range.second)));
+			}
+
+			template <class Key>
+			pair<const_iterator, const_iterator>	equal_range(const Key& key) const
+			{
+				pair<leaf_node_pointer, leaf_node_pointer>	range = get_equal_range(key);
+				return (ft::make_pair(const_iterator(range.first), const_iterator(range.second)));
+			}
+
+			/* Lookup: Returns an iterator pointing to the first element that is not less than (i.e. greator or equal to) key */
+			template <class Key>
+			iterator	lower_bound(const Key& key)
+			{
+				return (iterator(get_lower_bound(key)));
+			}
+
+			template <class Key>
+			const_iterator	lower_bound(const Key& key) const
+			{
+				return (const_iterator(get_lower_bound(key)));
+			}
+
+			/* Lookup: Returns an iterator pointing to the first element that is greater than key */
+			template <class Key>
+			iterator	upper_bound(const Key& key)
+			{
+				return (iterator(get_upper_bound(key)));
+			}
+
+			template <class Key>
+			const_iterator	upper_bound(const Key& key) const
+			{
+				return (iterator(get_upper_bound(key)));
 			}
 
 			/* Observers: Returns the function that compares keys in objects of type value_type */
@@ -164,16 +301,209 @@ namespace fd
 				_node_alloc.deallocate(node, 1);
 			}
 
-			/* Helper function: Returns the leaf node in pointer type */
+			/* Helper function: Returns the end node */
 			leaf_node_pointer	end_node()
 			{
 				return (static_cast<leaf_node_pointer>(&this->_leaf_node));
-			};
+			}
 
 			leaf_node_pointer	end_node() const
 			{
-				return (static_cast<leaf_node_pointer>(&this->_leaf_node));
-			};
+				return (const_cast<leaf_node_pointer>(&this->_leaf_node));
+			}
+
+			/* Helper function: Get equal range */
+			template <class Key>
+			pair<leaf_node_pointer, leaf_node_pointer>	get_equal_range(const Key& key) const
+			{
+				node_pointer		ptr = this->root();
+				leaf_node_pointer	ub = this->end_node();
+				leaf_node_pointer	lb = this->end_node();
+
+				while (ptr != NULL)
+				{
+					if (value_comp()(key, ptr->_value))
+					{
+						ub = static_cast<leaf_node_pointer>(ptr);
+						lb = static_cast<leaf_node_pointer>(ptr);
+						ptr = ptr->_left;
+					}
+					else if (value_comp()(ptr->_value, key))
+						ptr = ptr->_right;
+					else
+					{
+						lb = static_cast<leaf_node_pointer>(ptr);
+						if (ptr->_right != NULL)
+							ub = static_cast<leaf_node_pointer>(most_left_node(ptr->_right));
+						break ;
+					}
+				}
+				return (ft::make_pair(lb, ub));
+			}
+
+			/* Helper function: Get the lower bound node */
+			template <class Key>
+			leaf_node_pointer	get_lower_bound(const Key& key) const
+			{
+				leaf_node_pointer	pos = this->end_node();
+				node_pointer		ptr = this->root();
+
+				while (ptr != NULL)
+				{
+					if (value_comp()(ptr->_value, key))
+						ptr = ptr->_right;
+					else
+					{
+						pos = static_cast<leaf_node_pointer>(ptr);
+						ptr = ptr->_left;
+					}
+				}
+				return (pos);
+			}
+
+			/* Helper function: Get the node's pointer based on the key */
+			template <class Key>
+			leaf_node_pointer	get_node_pointer(const Key& key) const
+			{
+				node_pointer	ptr = this->root();
+				while (ptr != NULL)
+				{
+					if (this->value_comp()(key, ptr->_value))
+						ptr = ptr->_left;
+					else if (value_comp()(ptr->_value, key))
+						ptr = ptr->_right;
+					else
+						return (static_cast<leaf_node_pointer>(ptr));
+				}
+				return (NULL);
+			}
+
+			/* Helper function: Get the position of the node based on the key */
+			template<class Key>
+			node_pointer&	get_pos_key(leaf_node_pointer& parent, const Key& key) const
+			{
+				node_pointer	node = this->root();
+				node_pointer	*node_ptr = &this->end_node()->_left;
+
+				while (node != NULL)
+				{
+					if (value_comp()(key, node->_value))
+					{
+						if (node->_left != NULL)
+						{
+							node_ptr = &node->_left;
+							node = node->_left;
+						}
+						else
+						{
+							parent = static_cast<leaf_node_pointer>(node);
+							return (node->_left);
+						}
+					}
+					else if (value_comp()(node->_value, key))
+					{
+						if (node->_right != NULL)
+						{
+							node_ptr = &node->_right;
+							node = node->_right;
+						}
+						else
+						{
+							parent = static_cast<leaf_node_pointer>(node);
+							return (node->_right);
+						}
+					}
+					else
+					{
+						parent = static_cast<leaf_node_pointer>(node);
+						return (*node_ptr);
+					}
+				}
+				parent = static_cast<leaf_node_pointer>(end_node());
+				return (parent->_left);
+			}
+
+			/* Helper function: Get the position of the node based on the iterator */
+			template<class Key>
+			node_pointer&	get_pos_iterator(iterator it, leaf_node_pointer& parent, const Key& key, node_pointer& temp) const
+			{
+				if (it == this->end() || value_comp()(key, *it))
+				{
+					const_iterator	prev = it;
+					if (prev == begin() || value_comp()(*--prev, key))
+					{
+						if (it.base()->_left == NULL)
+						{
+							parent = it.base();
+							return (parent->_left);
+						}
+						else
+						{
+							parent = prev.base();
+							return (prev.node_ptr()->_right);
+						}
+					}
+					return (get_pos_key(parent, key));
+				}
+				else if (value_comp()(*it, key))
+				{
+					const_iterator	next = it;
+					++next;
+					if (next == end() || value_comp()(key, *next))
+					{
+						if (it.node_ptr()->_right == NULL)
+						{
+							parent = it.base();
+							return (it.node_ptr()->_right);
+						}
+						else
+						{
+							parent = next.base();
+							return (parent->_left);
+						}
+					}
+					return (get_pos_key(parent, key));
+				}
+				parent = it.base();
+				temp = it.node_ptr();
+				return (temp);
+			}
+
+			/* Helper function: Get the upper bound node */
+			template <class Key>
+			leaf_node_pointer	get_upper_bound(const Key& key) const
+			{
+				leaf_node_pointer	pos = this->end_node();
+				node_pointer		ptr = this->root();
+
+				while (ptr != NULL)
+				{
+					if (value_comp()(key, ptr->_value))
+					{
+						pos = static_cast<leaf_node_pointer>(ptr);
+						ptr = ptr->_left;
+					}
+					else
+						ptr = ptr->_right;
+				}
+				return (pos);
+			}
+
+			/* Helper function: Insert a new node into the pos */
+			iterator	insert_pos(node_pointer& pos, leaf_node_pointer parent, const value_type& value)
+			{
+				pos = this->_node_alloc.allocate(1);
+				pos->_left = NULL;
+				pos->_right = NULL;
+				pos->_parent = parent;
+				this->_value_alloc.construct(&pos->_value, value);
+				if (this->_leaf_node_ptr->_left != NULL)
+					this->_leaf_node_ptr = this->_leaf_node_ptr->_left;
+				this->_size++;
+				node_pointer ptr = pos;
+				btree_insert(this->end_node()->_left, ptr);
+				return (iterator(ptr));
+			}
 
 			/* Helper function: Returns the root node */
 			node_pointer	root() const
@@ -190,6 +520,5 @@ namespace fd
 			size_type			_size;
 	};
 }
-
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 12:37:43 by schuah            #+#    #+#             */
-/*   Updated: 2022/12/16 13:45:43 by schuah           ###   ########.fr       */
+/*   Updated: 2022/12/19 14:25:21 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,37 +106,37 @@ namespace ft
 	bool	operator==(const stack<T, Container>& lhs, const stack<T, Container>& rhs)
 	{
 		return (lhs.c == rhs.c);
-	};
+	}
 
 	template <class T, class Container>
 	bool	operator!=(const stack<T, Container>& lhs, const stack<T, Container>& rhs)
 	{
 		return (!(lhs == rhs));
-	};
+	}
 
 	template <class T, class Container>
 	bool	operator<(const stack<T, Container>& lhs, const stack<T, Container>& rhs)
 	{
 		return (lhs.c < rhs.c);
-	};
+	}
 
 	template <class T, class Container>
 	bool	operator<=(const stack<T, Container>& lhs, const stack<T, Container>& rhs)
 	{
 		return (!(rhs < lhs));
-	};
+	}
 
 	template <class T, class Container>
 	bool	operator>(const stack<T, Container>& lhs, const stack<T, Container>& rhs)
 	{
 		return (rhs < lhs);
-	};
+	}
 
 	template <class T, class Container>
 	bool	operator>=(const stack<T, Container>& lhs, const stack<T, Container>& rhs)
 	{
 		return (!(lhs < rhs));
-	};
+	}
 }
 
 #endif

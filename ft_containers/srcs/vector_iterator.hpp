@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 15:55:59 by schuah            #+#    #+#             */
-/*   Updated: 2022/12/16 14:02:27 by schuah           ###   ########.fr       */
+/*   Updated: 2022/12/19 14:23:49 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,51 +121,51 @@ namespace ft
 	bool operator==(const vector_iterator<Iterator1, Container>& lhs, const vector_iterator<Iterator2, Container>& rhs)
 	{
 		return (lhs.base() == rhs.base());
-	};
+	}
 
 	template <class Iterator1, class Iterator2, class Container>
 	bool operator!=(const vector_iterator<Iterator1, Container>& lhs, const vector_iterator<Iterator2, Container>& rhs)
 	{
 		return (lhs.base() != rhs.base());
-	};
+	}
 
 	template <class Iterator1, class Iterator2, class Container>
 	bool operator<(const vector_iterator<Iterator1, Container>& lhs, const vector_iterator<Iterator2, Container>& rhs)
 	{
 		return (lhs.base() < rhs.base());
-	};
+	}
 
 	template <class Iterator1, class Iterator2, class Container>
 	bool operator<=(const vector_iterator<Iterator1, Container>& lhs, const vector_iterator<Iterator2, Container>& rhs)
 	{
 		return (lhs.base() <= rhs.base());
-	};
+	}
 	
 	template <class Iterator1, class Iterator2, class Container>
 	bool operator>(const vector_iterator<Iterator1, Container>& lhs, const vector_iterator<Iterator2, Container>& rhs)
 	{
 		return (lhs.base() > rhs.base());
-	};
+	}
 
 	template <class Iterator1, class Iterator2, class Container>
 	bool operator>=(const vector_iterator<Iterator1, Container>& lhs, const vector_iterator<Iterator2, Container>& rhs)
 	{
 		return (lhs.base() >= rhs.base());
-	};
+	}
 
 	/* Advances the iterator */
 	template <class Iterator, class Container>
 	vector_iterator<Iterator, Container>	operator+(typename vector_iterator<Iterator, Container>::difference_type n, const vector_iterator<Iterator, Container>& it)
 	{
 		return (vector_iterator<Iterator, Container>(it.base() + n));
-	};
+	}
 
 	/* Computes the distance between two iterator adaptors */
 	template <class Iterator1, typename Iterator2, typename Container>
 	typename vector_iterator<Iterator1, Container>::difference_type	operator-(const vector_iterator<Iterator1, Container>& lhs, const vector_iterator<Iterator2, Container>& rhs)
 	{
 		return (lhs.base() - rhs.base());
-	};
+	}
 }
 
 #endif

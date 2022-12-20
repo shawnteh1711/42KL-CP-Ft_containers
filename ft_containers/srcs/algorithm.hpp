@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 09:05:28 by schuah            #+#    #+#             */
-/*   Updated: 2022/11/29 10:08:26 by schuah           ###   ########.fr       */
+/*   Updated: 2022/12/19 16:12:59 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
  */
 namespace ft
 {
-	/* Checks if the range [first1, last1] is equal to the range [first2, first2 + (last1 - first1)] */
+	/* Checks if the range [first1, last1]) is equal to the range [first2, first2 + (last1 - first1)) */
 	template <class InputIt1, class InputIt2>
 	bool	equal(InputIt1 first1, InputIt1 last1, InputIt2 first2)
 	{

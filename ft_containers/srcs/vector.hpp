@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 12:37:58 by schuah            #+#    #+#             */
-/*   Updated: 2022/12/16 13:49:39 by schuah           ###   ########.fr       */
+/*   Updated: 2022/12/19 21:09:04 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ namespace ft
 				}
 			};
 
-			/* Replaces the contents with copies of those in range [first, last] */
+			/* Replaces the contents with copies of those in range [first, last) */
 			template <class InputIt>
 			void	assign(InputIt first, typename enable_if<!is_integral<InputIt>::value, InputIt>::type last)
 			{
@@ -322,7 +322,7 @@ namespace ft
 				}
 			};
 
-			/* Modifiers: Insert elements from range [first, last] before pos */
+			/* Modifiers: Insert elements from range [first, last) before pos */
 			template <class InputIt>
 			void	insert(iterator pos, InputIt first, typename enable_if<!is_integral<InputIt>::value, InputIt>::type last)
 			{
@@ -339,7 +339,7 @@ namespace ft
 				return (pos);
 			};
 
-			/* Modifiers: Removes the elements in the range [first, last] */
+			/* Modifiers: Removes the elements in the range [first, last) */
 			iterator	erase(iterator first, iterator last)
 			{
 				if (first == last)
@@ -452,7 +452,7 @@ namespace ft
 				return (std::max(size() + count, cap * 2));
 			};
 
-			/* Helper function: Assigns range [first, last] by copying */
+			/* Helper function: Assigns range [first, last) by copying */
 			template <class ForwardIt>
 			void	range_assign(ForwardIt first, ForwardIt last)
 			{
@@ -483,7 +483,7 @@ namespace ft
 				this->_end = this->construct_from_start(this->_start, first, last);
 			};
 
-			/* Helper function: Inserts from range [first, last] into pos by constructing*/
+			/* Helper function: Inserts from range [first, last) into pos by constructing*/
 			template <class ForwardIt>
 			void	range_insert(iterator pos, ForwardIt first, ForwardIt last)
 			{
@@ -538,44 +538,44 @@ namespace ft
 	bool	operator==(const vector<T, Alloc>& lhs, const vector<T, Alloc>& rhs)
 	{
 		return (lhs.size() == rhs.size() && ft::equal(lhs.begin(), lhs.end(), rhs.begin()));
-	};
+	}
 
 	template <class T, class Alloc>
 	bool	operator!=(const vector<T, Alloc>& lhs, const vector<T, Alloc>& rhs)
 	{
 		return !(lhs == rhs);
-	};
+	}
 
 	template <class T, class Alloc>
 	bool	operator<(const vector<T, Alloc>& lhs, const vector<T, Alloc>& rhs)
 	{
 		return (ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()));
-	};
+	}
 
 	template <class T, class Alloc>
 	bool	operator<=(const vector<T, Alloc>& lhs, const vector<T, Alloc>& rhs)
 	{
 		return !(rhs < lhs);
-	};
+	}
 
 	template <class T, class Alloc>
 	bool	operator>(const vector<T, Alloc>& lhs, const vector<T, Alloc>& rhs)
 	{
 		return (rhs < lhs);
-	};
+	}
 
 	template <class T, class Alloc>
 	bool	operator>=(const vector<T, Alloc>& lhs, const vector<T, Alloc>& rhs)
 	{
 		return !(lhs < rhs);
-	};
+	}
 
 	/* Swaps the contents of lhs and rhs */
 	template <class T, class Alloc>
 	void	swap(vector<T, Alloc>& lhs, vector<T, Alloc>& rhs)
 	{
 		lhs.swap(rhs);
-	};
+	}
 }
 
 #endif
