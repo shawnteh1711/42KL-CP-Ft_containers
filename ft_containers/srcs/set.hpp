@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 12:37:47 by schuah            #+#    #+#             */
-/*   Updated: 2022/12/21 14:38:38 by schuah           ###   ########.fr       */
+/*   Updated: 2022/12/21 14:52:26 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -261,6 +261,50 @@ namespace ft
 		private:
 			base	_rbtree;
 	};
+
+	/* Lexicographically compares the values in the set */
+	template <class Key, class Compare, class Alloc>
+	bool	operator==(const set<Key, Compare, Alloc>& lhs, const set<Key, Compare, Alloc>& rhs)
+	{
+		return (lhs.size() == rhs.size() && ft::equal(lhs.begin(), lhs.end(), rhs.begin()));
+	}
+
+	template <class Key, class Compare, class Alloc>
+	bool	operator!=(const set<Key, Compare, Alloc>& lhs, const set<Key, Compare, Alloc>& rhs)
+	{
+		return (!(lhs == rhs));
+	}
+
+	template <class Key, class Compare, class Alloc>
+	bool	operator<(const set<Key, Compare, Alloc> lhs, const set<Key, Compare, Alloc> rhs)
+	{
+		return (ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()));
+	}
+
+	template <class Key, class Compare, class Alloc>
+	bool	operator<=(const set<Key, Compare, Alloc> lhs, const set<Key, Compare, Alloc> rhs)
+	{
+		return (!(rhs < lhs));
+	}
+
+	template <class Key, class Compare, class Alloc>
+	bool	operator>(const set<Key, Compare, Alloc> lhs, const set<Key, Compare, Alloc> rhs)
+	{
+		return (rhs < lhs);
+	}
+
+	template <class Key, class Compare, class Alloc>
+	bool	operator>=(const set<Key, Compare, Alloc> lhs, const set<Key, Compare, Alloc> rhs)
+	{
+		return (!(lhs < rhs));
+	}
+
+	/* Swaps the contents of lhs and rhs */
+	template <class Key, class Compare, class Alloc>
+	void	swap(set<Key, Compare, Alloc>& lhs, set<Key, Compare, Alloc>& rhs)
+	{
+		lhs.swap(rhs);
+	}
 }
 
 #endif
