@@ -6,7 +6,7 @@
 #    By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/14 15:35:19 by schuah            #+#    #+#              #
-#    Updated: 2022/12/21 15:55:58 by schuah           ###   ########.fr        #
+#    Updated: 2022/12/21 21:35:05 by schuah           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ $(NAME):		$(OBJS)
 				$(CXX) $(CXXFLAGS) $(OBJS) -o $(NAME)
 
 vector:
-				$(CXX) $(CXXFLAGS) srcs/vector.cpp -o $(NAME)
+				$(CXX) $(CXXFLAGS) testers/vector.cpp -o $(NAME)
 				./ft_containers
 
 clean:

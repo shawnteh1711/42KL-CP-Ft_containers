@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 12:37:58 by schuah            #+#    #+#             */
-/*   Updated: 2022/12/21 15:54:53 by schuah           ###   ########.fr       */
+/*   Updated: 2022/12/21 22:07:52 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,21 +100,22 @@ namespace ft
 			/* Replaces the contents with count copies of value */
 			void	assign(size_type count, const T& value)
 			{
-				if (count > capacity())
+				if (count > this->capacity())
 				{
 					vector	temp(count, value);
 					temp.swap(*this);
 				}
-				else if (count > size())
+				else if (count > this->size())
 				{
-					const size_type	available = count - size();
-					std::fill(begin(), end(), value);
+					const size_type	available = count - this->size();
+					std::fill(this->begin(), this->end(), value);
 					this->_end = this->construct_with_val(this->_end, this->_end + available, value);
 				}
 				else
 				{
-					pointer	it = std::fill_n(this->_start, count, value);
-					this->destroy_from_start(it);
+					printf("Here\n");
+					pointer	ptr = std::fill_n(this->_start, count, value);
+					this->destroy_from_start(ptr);
 				}
 			};
 
@@ -253,12 +254,12 @@ namespace ft
 			/* Capacity: Increase the capacity of the vector (Allocation might be needed) to a value that's greator or equal to new_cap */
 			void	reserve(size_type new_cap)
 			{
-				if (new_cap < capacity())
+				if (new_cap < this->capacity())
 					return ;
 				this->check_max_size(new_cap);
 				pointer	start = this->_alloc.allocate(new_cap);
 				pointer	end;
-				end = construct_from_start(start, this->_start, this->_end);
+				end = this->construct_from_start(start, this->_start, this->_end);
 				this->deallocate_vector();
 				this->_start = start;
 				this->_end = end;
@@ -268,7 +269,7 @@ namespace ft
 			/* Capacity: Returns the number of elements that the container has currently allocated space for */
 			size_type	capacity () const
 			{
-				return (static_cast<size_type>(this->_end - this->_start));
+				return (static_cast<size_type>(this->_cap - this->_start));
 			};
 
 			/* Modifiers: Erases all elements from the container */
@@ -444,8 +445,8 @@ namespace ft
 			/* Helper function: Returns the size after count expansions */
 			size_type	get_expansion(size_type count) const
 			{
-				const size_type	max = max_size();
-				const size_type	cap = capacity();
+				const size_type	max = this->max_size();
+				const size_type	cap = this->capacity();
 				if (max - cap < count)
 					throw std::length_error("Length error");
 				if (cap >= max / 2)
@@ -495,7 +496,7 @@ namespace ft
 				this->check_max_size(count);
 				if (available >= count)
 				{
-					const size_type post = end() - pos;
+					const size_type post = this->end() - pos;
 					pointer			temp = this->_end;
 					if (post > count)
 					{
