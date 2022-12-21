@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 14:56:56 by schuah            #+#    #+#             */
-/*   Updated: 2022/12/20 17:46:17 by schuah           ###   ########.fr       */
+/*   Updated: 2022/12/21 14:34:08 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -254,7 +254,7 @@ namespace ft
 				return (ft::make_pair(const_iterator(range.first), const_iterator(range.second)));
 			}
 
-			/* Lookup: Returns an iterator pointing to the first element that is not less than (i.e. greator or equal to) key */
+			/* Lookup: Returns an iterator to the first element not less than the given key */
 			template <class Key>
 			iterator	lower_bound(const Key& key)
 			{

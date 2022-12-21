@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 12:37:58 by schuah            #+#    #+#             */
-/*   Updated: 2022/12/20 17:45:35 by schuah           ###   ########.fr       */
+/*   Updated: 2022/12/21 14:14:03 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ namespace ft
 	class vector
 	{
 		public:
+			/* Member types */
 			typedef T										value_type;
 			typedef Allocator								allocator_type;
 			typedef std::size_t								size_type;
@@ -89,7 +90,7 @@ namespace ft
 			/* Copy assignation operator */
 			vector&	operator=(const vector& other)
 			{
-				if (&other == this)
+				if (this == &other)
 					return (*this);
 				this->assign(other.begin(), other.end());
 				return (*this);

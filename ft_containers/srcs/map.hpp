@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 12:37:49 by schuah            #+#    #+#             */
-/*   Updated: 2022/12/20 17:32:42 by schuah           ###   ########.fr       */
+/*   Updated: 2022/12/21 14:33:51 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ namespace ft
 			/* Copy assignation operator */
 			vt_compare	&operator=(const vt_compare& other)
 			{
+				if (this == &other)
+					return (*this);
 				this->_comp = other._comp;
 				return (*this);
 			};
@@ -148,7 +150,7 @@ namespace ft
 			/* Default constructor */
 			map() : _rbtree(vt_compare()) {};
 
-			/* Constructs an empty container with a comparator */
+			/* Constructs an empty container with a comparator and allocator */
 			explicit	map(const key_compare& comp, const allocator_type& alloc = allocator_type()) : _rbtree(vt_compare(comp), alloc) {};
 
 			/* Constructs the container with the contents of range [first, last) */
@@ -167,7 +169,7 @@ namespace ft
 			/* Copy assignation operator */
 			map& operator=(const map& other)
 			{
-				if (*this == other)
+				if (this == &other)
 					return (*this);
 				this->_rbtree = other._rbtree;
 				return (*this);
@@ -341,7 +343,7 @@ namespace ft
 				return (this->_rbtree.equal_range(key));
 			}
 
-			/* Lookup: Returns an iterator pointing to the first element that is not less than (i.e. greator or equal to) key */
+			/* Lookup: Returns an iterator to the first element not less than the given key */
 			iterator	lower_bound(const key_type& key)
 			{
 				return (this->_rbtree.lower_bound(key));
@@ -376,6 +378,7 @@ namespace ft
 			}
 
 		private:
+			/* Private member variables */
 			base	_rbtree;
 	};
 

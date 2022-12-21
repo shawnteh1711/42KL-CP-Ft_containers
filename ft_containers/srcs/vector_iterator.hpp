@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 15:55:59 by schuah            #+#    #+#             */
-/*   Updated: 2022/12/20 15:04:54 by schuah           ###   ########.fr       */
+/*   Updated: 2022/12/21 14:14:08 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ namespace ft
 			~vector_iterator() {};
 			vector_iterator&	operator=(const vector_iterator& other)
 			{
+				if (this == &other)
+					return (*this);
 				this->_iter = other._iter;
 				return (*this);
 			};

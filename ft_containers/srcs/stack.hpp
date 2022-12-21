@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 12:37:43 by schuah            #+#    #+#             */
-/*   Updated: 2022/12/20 15:05:36 by schuah           ###   ########.fr       */
+/*   Updated: 2022/12/21 14:14:16 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ namespace ft
 			/* Copy assignation operator */
 			stack& operator=(const stack& other)
 			{
+				if (this == &other)
+					return (*this);
 				this->c = other.c;
 				return (*this);
 			};

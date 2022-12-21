@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 15:36:55 by schuah            #+#    #+#             */
-/*   Updated: 2022/12/20 14:43:03 by schuah           ###   ########.fr       */
+/*   Updated: 2022/12/21 14:11:37 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,6 @@
 # include "rbtree.hpp"
 # include "stack.hpp"
 # include "map.hpp"
+# include "set.hpp"
 
 #endif
