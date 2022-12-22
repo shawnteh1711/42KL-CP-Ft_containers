@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 15:20:25 by schuah            #+#    #+#             */
-/*   Updated: 2022/12/22 14:58:53 by schuah           ###   ########.fr       */
+/*   Updated: 2022/12/22 15:14:54 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -467,6 +467,20 @@ int	main(void)
 	}
 	catch(const std::exception& e) { std::cerr << e.what() << "\n\n"; }
 
+	try
+	{
+		ft_v2.reserve(ft_v2.max_size());
+		assert(false);
+	}
+	catch(const std::exception& e) { std::cerr << e.what() << "\n\n"; }
+
+	try
+	{
+		ft_v2.reserve(ft_v2.max_size() + 1);
+		assert(false);
+	}
+	catch(const std::exception& e) { std::cerr << e.what() << "\n\n"; }
+
 	print_break("Capacity");
 	vector_check(ft_cap, std_cap);
 
@@ -602,6 +616,20 @@ int	main(void)
 	}
 	catch(const std::exception& e) {std::cerr << e.what() << "\n\n";}
 
+	try
+	{
+		ft_v2.resize(ft_v2.max_size());
+		assert(false);
+	}
+	catch(const std::exception& e) { std::cerr << e.what() << "\n\n"; }
+
+	try
+	{
+		ft_v2.resize(ft_v2.max_size() + 1);
+		assert(false);
+	}
+	catch(const std::exception& e) { std::cerr << e.what() << "\n\n"; }
+
 	print_break("Swap");
 	ft_v1.swap(ft_v2);
 	std_v1.swap(std_v2);
@@ -642,5 +670,6 @@ int	main(void)
 	vector_check(ft_v1, std_v1);
 	vector_check(ft_v3, std_v3);
 
+	// std::cout << ft_v2.max_size() << std::endl;
 	return (0);
 }

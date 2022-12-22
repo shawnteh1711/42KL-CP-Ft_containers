@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 12:37:58 by schuah            #+#    #+#             */
-/*   Updated: 2022/12/22 14:47:35 by schuah           ###   ########.fr       */
+/*   Updated: 2022/12/22 15:09:09 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -254,9 +254,8 @@ namespace ft
 			/* Capacity: Increase the capacity of the vector (Allocation might be needed) to a value that's greator or equal to new_cap */
 			void	reserve(size_type new_cap)
 			{
-				if (new_cap < this->capacity())
+				if (this->check_max_size(new_cap) || new_cap < this->capacity())
 					return ;
-				this->check_max_size(new_cap);
 				pointer	start = this->_alloc.allocate(new_cap);
 				pointer	end;
 				end = this->construct_from_start(start, this->_start, this->_end);
