@@ -31,7 +31,19 @@ $(NAME):		$(OBJS)
 				$(CXX) $(CXXFLAGS) $(OBJS) -o $(NAME)
 
 vector:
-				$(CXX) $(CXXFLAGS) testers/vector.cpp -o $(NAME)
+				$(CXX) $(CXXFLAGS) container_testers/vector.cpp -o $(NAME)
+				./ft_containers
+
+stack:
+				$(CXX) $(CXXFLAGS) container_testers/stack.cpp -o $(NAME)
+				./ft_containers
+			
+map:
+				$(CXX) $(CXXFLAGS) container_testers/map.cpp -o $(NAME)
+				./ft_containers
+
+set:
+				$(CXX) $(CXXFLAGS) container_testers/set.cpp -o $(NAME)
 				./ft_containers
 
 clean:
