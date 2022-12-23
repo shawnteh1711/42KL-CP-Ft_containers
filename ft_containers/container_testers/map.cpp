@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 13:16:42 by schuah            #+#    #+#             */
-/*   Updated: 2022/12/23 17:31:23 by schuah           ###   ########.fr       */
+/*   Updated: 2022/12/23 18:48:08 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,19 @@ int	main(void)
 	std::allocator<std::pair<int, char> >									a1;
 	std::allocator<int>														a2;
 
+	ft::map<int, char, std::greater<int> >									ft_comp;
+	ft::map<int, char, std::greater<int> >::key_compare						ft_key_comp1;
+	ft::map<int, char>::key_compare											ft_key_comp2;
+	ft::map<int, char, std::greater<int> >::value_compare					ft_value_comp1 = ft_comp.value_comp();
+	ft::map<int, char>::value_compare										ft_value_comp2 = ft_m1.value_comp();
 	ft::pair<ft::map<int, char>::iterator, ft::map<int, char>::iterator>	range;
+
+	std::map<int, char, std::greater<int> >									std_comp;
+	std::map<int, char, std::greater<int> >::key_compare					std_key_comp1;
+	std::map<int, char>::key_compare										std_key_comp2;
+	std::map<int, char, std::greater<int> >::value_compare					std_value_comp1 = std_comp.value_comp();
+	std::map<int, char>::value_compare										std_value_comp2 = std_m1.value_comp();
+	
 
 	map_check(ft_m1, std_m1);
 	map_check(ft_m2, std_m2);
@@ -544,5 +556,84 @@ int	main(void)
 	assert(it == ft_m4.end());
 	
 	print_break("Key_comp");
+	ft_key_comp1 = ft_comp.key_comp();
+	std_key_comp1 = std_comp.key_comp();
+	assert(ft_key_comp1(1, 0) == std_key_comp1(1, 0));
+	assert(ft_key_comp1(0, 1) == std_key_comp1(0, 1));
+	
+	ft_map_print(ft_m1);
+	ft_key_comp2 = ft_m1.key_comp();
+	std_key_comp2 = std_m1.key_comp();
+	assert(ft_key_comp1(1, 0) == std_key_comp1(1, 0));
+	assert(ft_key_comp1(0, 1) == std_key_comp1(0, 1));
+
+	print_break("Value_comp");
+	assert(ft_value_comp1(ft::pair<int, char>(0, 'A'), ft::pair<int, char>(1, 'B')) == std_value_comp1(std::pair<int, char>(0, 'A'), std::pair<int, char>(1, 'B')));
+	assert(ft_value_comp1(ft::pair<int, char>(0, 'B'), ft::pair<int, char>(1, 'A')) == std_value_comp1(std::pair<int, char>(0, 'B'), std::pair<int, char>(1, 'A')));
+	assert(ft_value_comp1(ft::pair<int, char>(1, 'A'), ft::pair<int, char>(0, 'B')) == std_value_comp1(std::pair<int, char>(1, 'A'), std::pair<int, char>(0, 'B')));
+	assert(ft_value_comp1(ft::pair<int, char>(1, 'B'), ft::pair<int, char>(0, 'A')) == std_value_comp1(std::pair<int, char>(1, 'B'), std::pair<int, char>(0, 'A')));
+	
+	ft_map_print(ft_m1);
+	assert(ft_value_comp2(ft::pair<int, char>(0, 'A'), ft::pair<int, char>(1, 'B')) == std_value_comp2(std::pair<int, char>(0, 'A'), std::pair<int, char>(1, 'B')));
+	assert(ft_value_comp2(ft::pair<int, char>(0, 'B'), ft::pair<int, char>(1, 'A')) == std_value_comp2(std::pair<int, char>(0, 'B'), std::pair<int, char>(1, 'A')));
+	assert(ft_value_comp2(ft::pair<int, char>(1, 'A'), ft::pair<int, char>(0, 'B')) == std_value_comp2(std::pair<int, char>(1, 'A'), std::pair<int, char>(0, 'B')));
+	assert(ft_value_comp2(ft::pair<int, char>(1, 'B'), ft::pair<int, char>(0, 'A')) == std_value_comp2(std::pair<int, char>(1, 'B'), std::pair<int, char>(0, 'A')));
+
+	print_break("Operators");
+	ft_m1.clear();
+	ft_m1.insert(ft_m3.begin(), --ft_m3.end());
+	ft_m1.erase(--ft_m1.end());
+	ft_m2 = ft_m1;
+	ft_m4 = ft_m3;
+	ft_m3.erase(2);
+	ft_m3.erase(3);
+	ft_m3.erase(4);
+
+	ft_map_print(ft_m1);
+	ft_map_print(ft_m2);
+	ft_map_print(ft_m3);
+	ft_map_print(ft_m4);
+
+	assert(ft_m1 == ft_m1);
+	assert(ft_m1 == ft_m2);
+	assert(!(ft_m1 == ft_m3));
+	assert(!(ft_m1 == ft_m4));
+
+	assert(!(ft_m1 != ft_m1));
+	assert(!(ft_m1 != ft_m2));
+	assert(ft_m1 != ft_m3);
+	assert(ft_m1 != ft_m4);
+
+	assert(!(ft_m1 < ft_m1));
+	assert(!(ft_m1 < ft_m2));
+	assert(!(ft_m1 < ft_m3));
+	assert(ft_m1 < ft_m4);
+
+	assert(ft_m1 <= ft_m1);
+	assert(ft_m1 <= ft_m2);
+	assert(!(ft_m1 <= ft_m3));
+	assert(ft_m1 <= ft_m4);
+
+	assert(!(ft_m1 > ft_m1));
+	assert(!(ft_m1 > ft_m2));
+	assert(ft_m1 > ft_m3);
+	assert(!(ft_m1 > ft_m4));
+
+	assert(ft_m1 >= ft_m1);
+	assert(ft_m1 >= ft_m2);
+	assert(ft_m1 >= ft_m3);
+	assert(!(ft_m1 >= ft_m4));
+
+	print_break("Std::swap");
+	ft_m1 = ft_m4;
+	ft::swap(ft_m1, ft_m5);
+	std::swap(std_m1, std_m5);
+	map_check(ft_m1, std_m1);
+	map_check(ft_m5, std_m5);
+
+	ft::swap(ft_m1, ft_m5);
+	std::swap(std_m1, std_m5);
+	map_check(ft_m1, std_m1);
+	map_check(ft_m5, std_m5);
 	return (0);
 }

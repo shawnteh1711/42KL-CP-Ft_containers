@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 12:08:49 by schuah            #+#    #+#             */
-/*   Updated: 2022/12/23 13:23:17 by schuah           ###   ########.fr       */
+/*   Updated: 2022/12/23 18:34:20 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,48 +163,45 @@ int	main(void)
 	stack_check(ft_s2, std_s2);
 
 	print_break("Operators");
-	ft::stack<int>	s1 = init_stack(1, 2, 3);
-	ft::stack<int>	s2 = init_stack(1, 2, 3);
-	ft::stack<int>	s3 = init_stack(1, 2, 4);
+	ft::stack<int>	s1 = init_stack(1, 2, 4);
+	ft::stack<int>	s2 = init_stack(1, 2, 4);
+	ft::stack<int>	s3 = init_stack(1, 2, 3);
 	ft::stack<int>	s4 = init_stack(1, 3, 2);
-	ft::stack<int>	s5 = init_stack(2, 1, 3);
 
 	ft_stack_print(s1);
 	ft_stack_print(s2);
 	ft_stack_print(s3);
 	ft_stack_print(s4);
-	ft_stack_print(s5);
 
-
+	assert(s1 == s1);
 	assert(s1 == s2);
 	assert(!(s1 == s3));
 	assert(!(s1 == s4));
-	assert(!(s1 == s5));
 
+	assert(!(s1 != s1));
 	assert(!(s1 != s2));
 	assert(s1 != s3);
 	assert(s1 != s4);
-	assert(s1 != s5);
 
+	assert(!(s1 < s1));
 	assert(!(s1 < s2));
-	assert(s1 < s3);
+	assert(!(s1 < s3));
 	assert(s1 < s4);
-	assert(s1 < s5);
 
+	assert(s1 <= s1);
 	assert(s1 <= s2);
-	assert(s1 <= s3);
+	assert(!(s1 <= s3));
 	assert(s1 <= s4);
-	assert(s1 <= s5);
 
+	assert(!(s1 > s1));
 	assert(!(s1 > s2));
-	assert(!(s1 > s3));
+	assert(s1 > s3);
 	assert(!(s1 > s4));
-	assert(s5 > s1);
 
+	assert(s1 >= s1);
 	assert(s1 >= s2);
-	assert(!(s1 >= s3));
+	assert(s1 >= s3);
 	assert(!(s1 >= s4));
-	assert(s5 >= s1);
 
 	return (0);
 }

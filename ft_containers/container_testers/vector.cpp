@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 15:20:25 by schuah            #+#    #+#             */
-/*   Updated: 2022/12/23 15:24:16 by schuah           ###   ########.fr       */
+/*   Updated: 2022/12/23 18:37:24 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -670,12 +670,37 @@ int	main(void)
 	ft_vector_print(ft_v1);
 	ft_vector_print(ft_v2);
 	ft_vector_print(ft_v3);
+	ft_vector_print(ft_v4);
+
+	assert(ft_v1 == ft_v1);
 	assert(ft_v1 == ft_v2);
+	assert(!(ft_v1 == ft_v3));
+	assert(!(ft_v1 == ft_v4));
+
+	assert(!(ft_v1 != ft_v1));
+	assert(!(ft_v1 != ft_v2));
 	assert(ft_v1 != ft_v3);
+	assert(ft_v1 != ft_v4);
+
+	assert(!(ft_v1 < ft_v1));
+	assert(!(ft_v1 < ft_v2));
+	assert(!(ft_v1 < ft_v3));
+	assert(ft_v1 < ft_v4);
+
+	assert(ft_v1 <= ft_v1);
+	assert(ft_v1 <= ft_v2);
+	assert(!(ft_v1 <= ft_v3));
+	assert(ft_v1 <= ft_v4);
+
+	assert(!(ft_v1 > ft_v1));
+	assert(!(ft_v1 > ft_v2));
 	assert(ft_v1 > ft_v3);
+	assert(!(ft_v1 > ft_v4));
+
+	assert(ft_v1 >= ft_v1);
+	assert(ft_v1 >= ft_v2);
 	assert(ft_v1 >= ft_v3);
-	assert(ft_v3 < ft_v1);
-	assert(ft_v3 <= ft_v1);
+	assert(!(ft_v1 >= ft_v4));
 
 	print_break("Std::swap");
 	ft::swap(ft_v1, ft_v3);
