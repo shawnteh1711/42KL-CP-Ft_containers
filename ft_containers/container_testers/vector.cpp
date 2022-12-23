@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 15:20:25 by schuah            #+#    #+#             */
-/*   Updated: 2022/12/22 15:14:54 by schuah           ###   ########.fr       */
+/*   Updated: 2022/12/23 12:57:01 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@
 template <class T>
 void	ft_vector_print(ft::vector<T> const &v)
 {
-	std::cout << "size: " << v.size() << std::endl;
-	std::cout << "capacity: " << v.capacity() << std::endl;
-	
 	typename ft::vector<T>::const_iterator	b = v.begin();
 	typename ft::vector<T>::const_iterator	e = v.end();
+
+	std::cout << "size: " << v.size() << std::endl;
+	std::cout << "capacity: " << v.capacity() << std::endl;	
 	std::cout << "Content: " << std::endl;
 	for (; b != e; ++b)
 		std::cout << *b << " ";
@@ -32,11 +32,11 @@ void	ft_vector_print(ft::vector<T> const &v)
 template <class T>
 void	std_vector_print(std::vector<T> const &v)
 {
-	std::cout << "size: " << v.size() << std::endl;
-	std::cout << "capacity: " << v.capacity() << std::endl;
-	
 	typename std::vector<T>::const_iterator	b = v.begin();
 	typename std::vector<T>::const_iterator	e = v.end();
+
+	std::cout << "size: " << v.size() << std::endl;
+	std::cout << "capacity: " << v.capacity() << std::endl;
 	std::cout << "Content: " << std::endl;
 	for (; b != e; ++b)
 		std::cout << *b << " ";
@@ -55,16 +55,18 @@ void	print_break(std::string text)
 }
 
 template <class T>
-void	vector_check(ft::vector<T> const &v, std::vector<T> const &std_v)
+void	vector_check(ft::vector<T> const &ft_v, std::vector<T> const &std_v)
 {
-	ft_vector_print(v);
-	assert(v.capacity() == std_v.capacity());
-	assert(v.empty() == std_v.empty());
-	assert(v.get_allocator() == std_v.get_allocator());
-	assert(v.max_size() == std_v.max_size());
-	assert(v.size() == std_v.size());
+	ft_vector_print(ft_v);
 	for (size_t i = 0; i < std_v.size(); i++)
-		assert(v[i] == std_v[i]);
+	{
+		assert(ft_v[i] == std_v[i]);
+		assert(ft_v.capacity() == std_v.capacity());
+		assert(ft_v.empty() == std_v.empty());
+		assert(ft_v.get_allocator() == std_v.get_allocator());
+		assert(ft_v.max_size() == std_v.max_size());
+		assert(ft_v.size() == std_v.size());
+	}
 }
 
 int	main(void)

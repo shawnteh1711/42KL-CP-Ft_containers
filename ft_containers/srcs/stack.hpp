@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 12:37:43 by schuah            #+#    #+#             */
-/*   Updated: 2022/12/21 14:14:16 by schuah           ###   ########.fr       */
+/*   Updated: 2022/12/23 12:36:04 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ namespace ft
 			template <class Type, class C>
 			friend bool	operator<(const stack<Type, C>& lhs, const stack<Type, C>& rhs);
 
-		private:
+		protected:
 			/* Member objects */
 			container_type	c;
 	};
