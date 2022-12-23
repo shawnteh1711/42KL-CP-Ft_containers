@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 13:16:42 by schuah            #+#    #+#             */
-/*   Updated: 2022/12/23 18:49:15 by schuah           ###   ########.fr       */
+/*   Updated: 2022/12/23 20:36:10 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,8 @@ void	map_check(ft::map<Key, T> const &ft_m, std::map<Key, T> const &std_m)
 int	main(void)
 {
 	print_break("Constructors");
-	ft::map<int, char>						ft_m1;
-	std::map<int, char>						std_m1;
+	ft::map<int, char>														ft_m1;
+	std::map<int, char>														std_m1;
 	for (int i = 0; i < 5; i++)
 	{
 		ft_m1[i] = 'A' + i;
@@ -134,7 +134,7 @@ int	main(void)
 	ft_map_print(ft_m1);
 	assert(a1 == ft_m1.get_allocator());
 
-	std::map<int, char>						ft_alloc(a2);
+	std::map<int, char>	ft_alloc(a2);
 	ft_map_print(ft_m1);
 	assert(ft_m1.get_allocator() == ft_alloc.get_allocator());
 
@@ -358,16 +358,16 @@ int	main(void)
 	std_m2.insert(std::pair<int, char>(10, 'O'));
 	map_check(ft_m2, std_m2);
 
-	ft_m2.insert(ft_m1.begin(), ft::pair<int, char>(42, 'I'));
-	std_m2.insert(std_m1.begin(), std::pair<int, char>(42, 'I'));
+	ft_m2.insert(ft_m2.begin(), ft::pair<int, char>(42, 'I'));
+	std_m2.insert(std_m2.begin(), std::pair<int, char>(42, 'I'));
 	map_check(ft_m2, std_m2);
 
-	ft_m2.insert(ft_m1.begin(), ft::pair<int, char>(99, 'X'));
-	std_m2.insert(std_m1.begin(), std::pair<int, char>(99, 'X'));
+	ft_m2.insert(ft_m2.begin(), ft::pair<int, char>(99, 'X'));
+	std_m2.insert(std_m2.begin(), std::pair<int, char>(99, 'X'));
 	map_check(ft_m2, std_m2);
 
-	ft_m2.insert(--ft_m1.end(), ft::pair<int, char>(200, 'Q'));
-	std_m2.insert(--std_m1.end(), std::pair<int, char>(200, 'Q'));
+	ft_m2.insert(--ft_m2.end(), ft::pair<int, char>(200, 'Q'));
+	std_m2.insert(--std_m2.end(), std::pair<int, char>(200, 'Q'));
 	map_check(ft_m2, std_m2);
 
 	ft_m2.insert(ft_m3.begin(), ft_m3.end());
@@ -443,8 +443,8 @@ int	main(void)
 
 	it = ft_m1.find(100);
 	assert(it == ft_m1.end());
-	ft_m1[100] = 'N';
 
+	ft_m1[100] = 'N';
 	ft_map_print(ft_m1);
 	it = ft_m1.find(100);
 	assert(it != ft_m1.end());
