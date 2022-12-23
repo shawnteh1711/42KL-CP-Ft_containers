@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 12:08:49 by schuah            #+#    #+#             */
-/*   Updated: 2022/12/23 13:17:58 by schuah           ###   ########.fr       */
+/*   Updated: 2022/12/23 13:23:17 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 template <class T>
 void	ft_stack_print(ft::stack<T> const &s)
 {
-	std::cout << "size: " << s.size() << std::endl;
+	std::cout << "Size: " << s.size() << std::endl;
 	std::cout << "Content: " << std::endl;
 	for (ft::stack<T> temp = s; temp.empty() == false; temp.pop())
 		std::cout << temp.top() << " ";
@@ -28,7 +28,7 @@ void	ft_stack_print(ft::stack<T> const &s)
 template <class T>
 void	std_stack_print(std::stack<T> const &s)
 {
-	std::cout << "size: " << s.size() << std::endl;
+	std::cout << "Size: " << s.size() << std::endl;
 	std::cout << "Content: " << std::endl;
 	for (std::stack<T> temp = s; temp.empty() == false; temp.pop())
 		std::cout << temp.top() << " ";

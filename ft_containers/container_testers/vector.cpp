@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 15:20:25 by schuah            #+#    #+#             */
-/*   Updated: 2022/12/23 13:17:50 by schuah           ###   ########.fr       */
+/*   Updated: 2022/12/23 15:24:16 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ void	ft_vector_print(ft::vector<T> const &v)
 	typename ft::vector<T>::const_iterator	b = v.begin();
 	typename ft::vector<T>::const_iterator	e = v.end();
 
-	std::cout << "size: " << v.size() << std::endl;
-	std::cout << "capacity: " << v.capacity() << std::endl;	
+	std::cout << "Size: " << v.size() << std::endl;
+	std::cout << "Capacity: " << v.capacity() << std::endl;	
 	std::cout << "Content: " << std::endl;
 	for (; b != e; ++b)
 		std::cout << *b << " ";
@@ -35,8 +35,8 @@ void	std_vector_print(std::vector<T> const &v)
 	typename std::vector<T>::const_iterator	b = v.begin();
 	typename std::vector<T>::const_iterator	e = v.end();
 
-	std::cout << "size: " << v.size() << std::endl;
-	std::cout << "capacity: " << v.capacity() << std::endl;
+	std::cout << "Size: " << v.size() << std::endl;
+	std::cout << "Capacity: " << v.capacity() << std::endl;
 	std::cout << "Content: " << std::endl;
 	for (; b != e; ++b)
 		std::cout << *b << " ";
@@ -93,7 +93,9 @@ int	main(void)
 	std::vector<int>					std_clear;
 
 	ft::vector<int>::iterator			it;
+	ft::vector<int>::iterator			eit;
 	ft::vector<int>::reverse_iterator	rit;
+	ft::vector<int>::reverse_iterator	erit;
 
 
 	vector_check(ft_v1, std_v1);
@@ -111,7 +113,7 @@ int	main(void)
 	catch(const std::exception& e) { std::cerr << e.what() << "\n\n"; }
 	try
 	{
-		ft::vector<int>	ft_v7(std_v4.begin(), std_v1.end());
+		ft::vector<int>	ft_v7(ft_v4.begin(), ft_v1.end());
 		assert(false);
 	}
 	catch(const std::exception& e) { std::cerr << e.what() << "\n\n"; }
@@ -279,21 +281,25 @@ int	main(void)
 	print_break("Begin and End");
 	ft_vector_print(ft_v1);
 	it = ft_v1.begin();
+	eit = ft_v1.end();
 	assert(*ft_v1.begin() == 0);
 	assert(*(ft_v1.end() - 1) == 4);
 	assert(it == ft_v1.begin());
+	assert(eit == ft_v1.end());
 
 	ft_v1.push_back(5);
 	ft_vector_print(ft_v1);
 	assert(*ft_v1.begin() == 0);
 	assert(*(ft_v1.end() - 1) == 5);
 	assert(it == ft_v1.begin());
+	assert(eit == --ft_v1.end());
 
 	ft_v1.pop_back();
 	ft_vector_print(ft_v1);
 	assert(*ft_v1.begin() == 0);
 	assert(*(ft_v1.end() - 1) == 4);
 	assert(it == ft_v1.begin());
+	assert(eit == ft_v1.end());
 
 	ft_vector_print(ft_v1);
 	for (int i = 0; it != ft_v1.end(); it++, i++)
@@ -314,70 +320,80 @@ int	main(void)
 	assert(ft_v1[0] == 0);
 	assert(it == ft_v1.begin());
 
-	it = ft_v1.end();
+	eit = ft_v1.end();
 	*(ft_v1.end() - 1) = 5;
 	ft_vector_print(ft_v1);
 	assert(ft_v1[4] == 5);
-	assert(it == ft_v1.end());
+	assert(eit == ft_v1.end());
 
-	it = (ft_v1.end() - 1);
-	*it = 4;
+	eit = (ft_v1.end() - 1);
+	*eit = 4;
 	ft_vector_print(ft_v1);
 	assert(ft_v1[4] == 4);
-	assert(it + 1 == ft_v1.end());
+	assert(eit + 1 == ft_v1.end());
 
 	ft_vector_print(ft_temp);
 	assert(ft_temp.begin() == ft_temp.end());
 
 	print_break("Rbegin and Rend");
 	ft_vector_print(ft_v1);
-	rit = ft_v1.rend();
+	rit = ft_v1.rbegin();
+	erit = ft_v1.rend();
 	assert(*ft_v1.rbegin() == 4);
 	assert(*(ft_v1.rend() - 1) == 0);
-	assert(rit == ft_v1.rend());
+	assert(rit == ft_v1.rbegin());
+	assert(erit == ft_v1.rend());
 
 	ft_v1.push_back(5);
 	ft_vector_print(ft_v1);
 	assert(*ft_v1.rbegin() == 5);
 	assert(*(ft_v1.rend() - 1) == 0);
-	assert(rit == ft_v1.rend());
+	assert(rit == ++ft_v1.rbegin());
+	assert(erit == ft_v1.rend());
 
 	ft_v1.pop_back();
 	ft_vector_print(ft_v1);
 	assert(*ft_v1.rbegin() == 4);
 	assert(*(ft_v1.rend() - 1) == 0);
-	assert(rit == ft_v1.rend());
+	assert(rit == ft_v1.rbegin());
+	assert(erit == ft_v1.rend());
 
 	ft_vector_print(ft_v1);
-	for (int i = 0; rit != ft_v1.rend(); it++, i++)
+	for (int i = 4; rit != ft_v1.rend(); rit++, i--)
 	{
 		if (i == ft_v1.size() - 1)
 			assert(*(ft_v1.rbegin()) == i);
-		assert(*it == i);
+		std::cout << *rit << " " << i << std::endl;
+		assert(*rit == i);
 	}
 
 	rit = ft_v1.rbegin();
+	erit = ft_v1.rend();
 	*ft_v1.rbegin() = 6;
 	ft_vector_print(ft_v1);
 	assert(ft_v1[4] == 6);
 	assert(rit == ft_v1.rbegin());
+	assert(erit == ft_v1.rend());
 
 	*rit = 4;
 	ft_vector_print(ft_v1);
 	assert(ft_v1[4] == 4);
 	assert(rit == ft_v1.rbegin());
+	assert(erit == ft_v1.rend());
 
-	rit = ft_v1.rend();
+	erit = ft_v1.rend();
 	*(ft_v1.rend() - 1) = 5;
 	ft_vector_print(ft_v1);
 	assert(ft_v1[0] == 5);
-	assert(rit == ft_v1.rend());
+	assert(rit == ft_v1.rbegin());
+	assert(erit == ft_v1.rend());
 
-	rit = (ft_v1.rend() - 1);
-	*rit = 0;
+	erit = (ft_v1.rend() - 1);
+	*erit = 0;
 	ft_vector_print(ft_v1);
 	assert(ft_v1[0] == 0);
-	assert(rit + 1 == ft_v1.rend());
+	assert(rit == ft_v1.rbegin());
+	assert(erit + 1 == ft_v1.rend());
 
 	ft_vector_print(ft_temp);
 	assert(ft_temp.rbegin() == ft_temp.rend());
