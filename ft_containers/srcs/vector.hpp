@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 12:37:58 by schuah            #+#    #+#             */
-/*   Updated: 2022/12/23 14:02:16 by schuah           ###   ########.fr       */
+/*   Updated: 2022/12/23 21:19:42 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,6 @@ namespace ft
 				}
 				else
 				{
-					printf("Here\n");
 					pointer	ptr = std::fill_n(this->_start, count, value);
 					this->destroy_from_start(ptr);
 				}
