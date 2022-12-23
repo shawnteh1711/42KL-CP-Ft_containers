@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 15:20:25 by schuah            #+#    #+#             */
-/*   Updated: 2022/12/23 21:45:48 by schuah           ###   ########.fr       */
+/*   Updated: 2022/12/23 21:57:37 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -718,8 +718,12 @@ int	main(void)
 		vector_check(ft_v3, std_v3);
 	}
 	{
+		clock_t	start_time, end_time;
+		double	ft_elapsed_time, std_elapsed_time;
+		int	i;
+
 		print_break("Performance test");
-		clock_t	start_time = clock();
+		start_time = clock();
 		ft::vector<int> 					ft_v1;
 		ft::vector<int> 					ft_v2(42);
 		ft::vector<int> 					ft_v3(42, 42);
@@ -753,7 +757,7 @@ int	main(void)
 		ft_v1.pop_back();
 		ft_v1.resize(42);
 		ft_v1.swap(ft_v2);
-		int i = (ft_v1 == ft_v1);
+		i = (ft_v1 == ft_v1);
 		i = (ft_v1 != ft_v1);
 		i = (ft_v1 < ft_v1);
 		i = (ft_v1 <= ft_v1);
@@ -761,8 +765,8 @@ int	main(void)
 		i = (ft_v1 >= ft_v1);
 		std::swap(ft_v1, ft_v2);
 		
-		clock_t	end_time = clock();
-		double ft_elapsed_time = (double)(end_time - start_time) / CLOCKS_PER_SEC;
+		end_time = clock();
+		ft_elapsed_time = (double)(end_time - start_time) / CLOCKS_PER_SEC;
 		std::cout << "ft elapsed time: " << std::fixed << std::setprecision(6) << ft_elapsed_time << " seconds" << std::endl;
 
 		start_time = clock();
@@ -808,10 +812,10 @@ int	main(void)
 		std::swap(std_v1, std_v2);
 		
 		end_time = clock();
-		double	std_elapsed_time = (double)(end_time - start_time) / CLOCKS_PER_SEC;
+		std_elapsed_time = (double)(end_time - start_time) / CLOCKS_PER_SEC;
 		std::cout << "std elapsed time: " << std::fixed << std::setprecision(6) << std_elapsed_time << " seconds" << std::endl;
-		std::cout << "Slower by: " << ft_elapsed_time / std_elapsed_time << "x times" << std::endl; 
+		std::cout << "Slower by: " << ft_elapsed_time / std_elapsed_time << "x times\n" << std::endl; 
+		print_break("Test finished: Vector OK");
 	}
-
 	return (0);
 }
