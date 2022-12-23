@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 13:16:42 by schuah            #+#    #+#             */
-/*   Updated: 2022/12/23 18:48:08 by schuah           ###   ########.fr       */
+/*   Updated: 2022/12/23 18:49:15 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -635,5 +635,6 @@ int	main(void)
 	std::swap(std_m1, std_m5);
 	map_check(ft_m1, std_m1);
 	map_check(ft_m5, std_m5);
+
 	return (0);
 }
