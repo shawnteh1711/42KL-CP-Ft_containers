@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 12:08:49 by schuah            #+#    #+#             */
-/*   Updated: 2022/12/23 21:57:39 by schuah           ###   ########.fr       */
+/*   Updated: 2022/12/23 22:09:36 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 #include <stack>
 #include <vector>
 #include <chrono>
-#include <ctime>
 
 template <class T>
 void	ft_stack_print(ft::stack<T> const &s)
@@ -213,7 +212,7 @@ int	main(void)
 		clock_t	end_time;
 		double	ft_elapsed_time, std_elapsed_time;
 		int	i;
-		print_break("Performance test");
+		print_break("Performance");
 		start_time = clock();
 		ft::stack<int>									ft_s1;
 		ft::stack<int>									ft_s2;
@@ -264,9 +263,9 @@ int	main(void)
 		
 		end_time = clock();
 		std_elapsed_time = (double)(end_time - start_time) / CLOCKS_PER_SEC;
-		std::cout << "ft elapsed time: " << std::fixed << std::setprecision(6) << std_elapsed_time << " seconds" << std::endl;
+		std::cout << "std elapsed time: " << std::fixed << std::setprecision(6) << std_elapsed_time << " seconds" << std::endl;
 		std::cout << "Slower by: " << ft_elapsed_time / std_elapsed_time << "x times\n" << std::endl;
-		print_break("Test finished: Stack OK");
+		print_break("All test finished: Stack OK");
 	}
 	return (0);
 }

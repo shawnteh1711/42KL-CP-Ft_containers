@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 15:20:25 by schuah            #+#    #+#             */
-/*   Updated: 2022/12/23 21:57:37 by schuah           ###   ########.fr       */
+/*   Updated: 2022/12/23 22:00:12 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 #include <cassert>
 #include <vector>
 #include <chrono>
-#include <ctime>
 
 template <class T>
 void	ft_vector_print(ft::vector<T> const &v)
@@ -722,7 +721,7 @@ int	main(void)
 		double	ft_elapsed_time, std_elapsed_time;
 		int	i;
 
-		print_break("Performance test");
+		print_break("Performance");
 		start_time = clock();
 		ft::vector<int> 					ft_v1;
 		ft::vector<int> 					ft_v2(42);
@@ -815,7 +814,7 @@ int	main(void)
 		std_elapsed_time = (double)(end_time - start_time) / CLOCKS_PER_SEC;
 		std::cout << "std elapsed time: " << std::fixed << std::setprecision(6) << std_elapsed_time << " seconds" << std::endl;
 		std::cout << "Slower by: " << ft_elapsed_time / std_elapsed_time << "x times\n" << std::endl; 
-		print_break("Test finished: Vector OK");
+		print_break("All test finished: Vector OK");
 	}
 	return (0);
 }
