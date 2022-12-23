@@ -6,13 +6,14 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 14:56:56 by schuah            #+#    #+#             */
-/*   Updated: 2022/12/21 14:34:08 by schuah           ###   ########.fr       */
+/*   Updated: 2022/12/23 13:18:49 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RBTREE_HPP
 # define RBTREE_HPP
 
+# include <algorithm>
 # include "rbtree_iterator.hpp"
 
 namespace ft

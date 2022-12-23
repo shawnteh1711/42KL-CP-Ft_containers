@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 15:20:25 by schuah            #+#    #+#             */
-/*   Updated: 2022/12/23 12:57:01 by schuah           ###   ########.fr       */
+/*   Updated: 2022/12/23 13:17:50 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -672,6 +672,5 @@ int	main(void)
 	vector_check(ft_v1, std_v1);
 	vector_check(ft_v3, std_v3);
 
-	// std::cout << ft_v2.max_size() << std::endl;
 	return (0);
 }
