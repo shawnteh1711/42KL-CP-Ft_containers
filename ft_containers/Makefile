@@ -6,14 +6,14 @@
 #    By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/14 15:35:19 by schuah            #+#    #+#              #
-#    Updated: 2022/12/23 20:28:40 by schuah           ###   ########.fr        #
+#    Updated: 2022/12/23 21:30:57 by schuah           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		=	ft_containers
 CXX			=	c++
 RM			=	rm -f
-CXXFLAGS	=	-Wall -Wextra -Werror -std=c++98 -pedantic -fsanitize=address -g3
+CXXFLAGS	=	-Wall -Wextra -Werror -std=c++98 -pedantic #-fsanitize=address -g3
 SRCS_FILES	=	main
 SRCS		= 	$(addprefix $(SRCS_DIR), $(addsuffix .cpp, $(SRCS_FILES)))
 OBJS		= 	$(addprefix $(OBJS_DIR), $(addsuffix .o, $(SRCS_FILES)))
