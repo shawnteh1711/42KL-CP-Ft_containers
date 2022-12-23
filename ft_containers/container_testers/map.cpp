@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 13:16:42 by schuah            #+#    #+#             */
-/*   Updated: 2022/12/23 22:09:45 by schuah           ###   ########.fr       */
+/*   Updated: 2022/12/23 22:17:38 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -639,13 +639,11 @@ int	main(void)
 		map_check(ft_m5, std_m5);
 	}
 	{
-		clock_t start_time;
-		clock_t	end_time;
+		clock_t start_time, end_time;
 		double	ft_elapsed_time, std_elapsed_time;
 		int	i;
 		print_break("Performance");
 		start_time = clock();
-
 
 		ft::map<int, char>														ft_m1;
 		for (int i = 0; i < 5; i++)
@@ -694,8 +692,8 @@ int	main(void)
 		end_time = clock();
 		ft_elapsed_time = (double)(end_time - start_time) / CLOCKS_PER_SEC;
 		std::cout << "ft elapsed time: " << std::fixed << std::setprecision(6) << ft_elapsed_time << " seconds" << std::endl;
-
 		start_time = clock();
+
 		std::map<int, char>														std_m1;
 		for (int i = 0; i < 5; i++)
 			std_m1[i] = 'A' + i;
@@ -746,6 +744,5 @@ int	main(void)
 		std::cout << "Slower by: " << ft_elapsed_time / std_elapsed_time << "x times\n" << std::endl;
 		print_break("All test finished: Map OK");
 	}
-
 	return (0);
 }

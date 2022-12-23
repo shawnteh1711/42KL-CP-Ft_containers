@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 15:20:25 by schuah            #+#    #+#             */
-/*   Updated: 2022/12/23 22:00:12 by schuah           ###   ########.fr       */
+/*   Updated: 2022/12/23 22:17:27 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -720,9 +720,9 @@ int	main(void)
 		clock_t	start_time, end_time;
 		double	ft_elapsed_time, std_elapsed_time;
 		int	i;
-
 		print_break("Performance");
 		start_time = clock();
+
 		ft::vector<int> 					ft_v1;
 		ft::vector<int> 					ft_v2(42);
 		ft::vector<int> 					ft_v3(42, 42);
@@ -767,8 +767,8 @@ int	main(void)
 		end_time = clock();
 		ft_elapsed_time = (double)(end_time - start_time) / CLOCKS_PER_SEC;
 		std::cout << "ft elapsed time: " << std::fixed << std::setprecision(6) << ft_elapsed_time << " seconds" << std::endl;
-
 		start_time = clock();
+
 		std::vector<int> 					std_v1;
 		std::vector<int> 					std_v2(42);
 		std::vector<int> 					std_v3(42, 42);
